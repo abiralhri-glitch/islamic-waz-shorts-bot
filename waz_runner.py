@@ -2,6 +2,7 @@
 Main Execution Script for Islamic Waz Short Reels Auto-Poster
 Integrates Waz downloader, video processing, and Facebook Graph API Reels Publisher.
 """
+
 import os
 import sys
 import logging
@@ -15,7 +16,6 @@ def run():
     
     # 1. Prepare vertical Waz reel video
     reel_data = prepare_waz_reel_for_publishing()
-    
     if not reel_data or not reel_data.get("video_path") or not os.path.exists(reel_data["video_path"]):
         logging.error("Failed to prepare Waz reel video.")
         sys.exit(1)
@@ -27,16 +27,14 @@ def run():
     
     logging.info(f"Video Prepared: {video_path} (Size: {os.path.getsize(video_path)} bytes)")
     logging.info(f"Scholar: {scholar} | Title: {title}")
-    logging.info(f"Caption Preview:\n{caption[:150]}...")
+    logging.info(f"Caption Preview:\n{caption[:100]}...")
     
-    # 2. Publish to Facebook Page Reels
-    res = publish_reels_video(video_path=video_path, caption=caption)
-    
-    if res.get("success"):
-        video_id = res.get("video_id")
-        logging.info(f"🎉 SUCCESS! Islamic Waz Reel published to Facebook! Video ID: {video_id}")
+    # 2. Publish vertical reel to Facebook
+    res = publish_reels_video(video_path, caption)
+    if res:
+        logging.info(f"[SUCCESS] Successfully published Islamic Waz Reel to Facebook! Result: {res}")
     else:
-        logging.error(f"❌ Failed to publish reel to Facebook: {res.get('error')}")
+        logging.error("Failed to publish Waz Reel to Facebook.")
         sys.exit(1)
 
 if __name__ == "__main__":
