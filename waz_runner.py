@@ -30,6 +30,19 @@ from waz_downloader import (
 FFMPEG_EXE = imageio_ffmpeg.get_ffmpeg_exe()
 WATERMARK_PNG = os.path.join(ASSETS_DIR, "watermark_waz.png")
 HISTORY_FILE = os.path.join(BASE_DIR, "posted_waz_history.json")
+# অপরিবর্তনযোগ্য স্থায়ী ব্ল্যাকলিস্ট (ফেসবুক থেকে ডিলিট করলেও কখনো পুনরায় আপলোড হবে না)
+PERMANENT_BANNED_SIGNATURES = {
+    "bank_ahmadullah_life_advice",
+    "bank_ahmadullah_dua",
+    "ahmadullah_life_advice.mp4",
+    "ahmadullah_dua.mp4",
+    "yt_yXH8rPQ3l2M",
+    "yt_y31MzRdIDPo",
+    "জীনরা খাবার কোথায় পায়",
+    "দোয়ার ফজিলত ও রবকে ডাকার গোপন রহস্য",
+    "উত্তম চরিত্র ও সুন্দর পারিবারিক জীবনের শিক্ষা"
+}
+
 
 # 11 Curated Real-Scene Scholar Bank Clips (Expanded)
 BANK_METADATA = [
@@ -97,22 +110,7 @@ BANK_METADATA = [
         "nasihat": "কোরআনের ছায়াতলে ফিরে আসুন, সেখানেই রয়েছে দুনিয়া ও আখিরাতের চূড়ান্ত মুক্তি।",
         "hashtags": "#AllamaSayedi #SayediShorts #HeartTouching #Tawbah #Sunnah"
     },
-    {
-        "file": "ahmadullah_life_advice.mp4",
-        "src_id": "bank_ahmadullah_life_advice",
-        "scholar": "শায়খ আহমাদুল্লাহ",
-        "title": "শায়খ আহমাদুল্লাহ: উত্তম চরিত্র ও সুন্দর পারিবারিক জীবনের শিক্ষা",
-        "nasihat": "রাসুলুল্লাহ (সা.) বলেছেন: তোমাদের মধ্যে সর্বোত্তম ব্যক্তি সে, যে পরিবারের কাছে উত্তম।",
-        "hashtags": "#ShaykhAhmadullah #AhmadullahWaz #Sunnah #FamilyLife #IslamicReminder"
-    },
-    {
-        "file": "ahmadullah_dua.mp4",
-        "src_id": "bank_ahmadullah_dua",
-        "scholar": "শায়খ আহমাদুল্লাহ",
-        "title": "শায়খ আহমাদুল্লাহ: দোয়ার ফজিলত ও রবকে ডাকার গোপন রহস্য",
-        "nasihat": "তাহাজ্জুদের সময় ও সেজদায় গিয়ে রবের কাছে আকুল হয়ে চান, দোয়া ফিরিয়ে দেওয়া হয় না।",
-        "hashtags": "#ShaykhAhmadullah #DuaFajilat #AhmadullahWaz #Sunnah"
-    },
+
     {
         "file": "tariq_jamil_iman_reminder.mp4",
         "src_id": "bank_tariq_jamil_iman_reminder",
@@ -172,7 +170,7 @@ def run():
     print("[1/5] Checking previously posted videos on Facebook Page to guarantee ZERO DUPLICATES...")
     fb_posted = get_posted_signatures_from_facebook(page_id, token, limit=100)
     local_posted = load_local_history()
-    all_excluded = fb_posted.union(local_posted)
+    all_excluded = fb_posted.union(local_posted).union(PERMANENT_BANNED_SIGNATURES)
     print(f"[*] Found {len(all_excluded)} unique posted video signatures.")
 
     ts = int(time.time())
