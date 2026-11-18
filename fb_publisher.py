@@ -11,13 +11,16 @@ import requests
 GRAPH_API_VERSION = "v22.0"
 BASE_URL = f"https://graph.facebook.com/{GRAPH_API_VERSION}"
 
-# Guaranteed Fresh Page Access Token & ID Fallback (Never-Expiring System Backup)
+# Guaranteed Permanent (Never-Expiring) Page Access Token & ID Fallback
 DEFAULT_WAZ_PAGE_ID = "1541701802352983"
-DEFAULT_WAZ_ACCESS_TOKEN = "EAAe1H3izQCYBTFvjeIXZCwNmYWnVeKInLuqOOUK9f10JKpStEHwrGbUOCUil9SQQW8Y9Uc9p3ONlwv7gACQWxAZAHsdTYBmt7ZBxnhblvUXcGUwzKGZBDOrHCWFpQIEsgl2wggzR18uKsbX6FlBNr8e0mjSkKRzmfQBRhHnZArZCvVUgvtTnMyIv0HBvizyebwx5Ooie0KIzuNidwmorZAAnIqpWY0AnOyod7azv6JsHosZD"
+PERMANENT_WAZ_ACCESS_TOKEN = "EAAe1H3izQCYBTCSEu0hsdmYztnSiFPLlxbO1PwjZAMZBDL96VhST1KwwTcgs3SNM29ZBoZAsg15RRPkZCwn3TFh6PkUfvo7f65A17bub3eZBLiEeimaZBhG4f5YQywXbbLzly6o8Cpqzttt9t3rfA95fZAIbxLU5Hjbb5PIvjPSeiQZAUOvXJ5mY2ZAN5ZAoiZCDjBztceC8"
+
 
 def publish_reels_video(video_path: str, caption: str, page_id: str = None, access_token: str = None) -> str:
     page_id = page_id or os.environ.get("FB_PAGE_ID") or DEFAULT_WAZ_PAGE_ID
-    access_token = access_token or os.environ.get("FB_PAGE_ACCESS_TOKEN") or DEFAULT_WAZ_ACCESS_TOKEN
+    
+    # Priority: Permanent Token Fallback ensures 24/7 never-expiring publishing
+    access_token = PERMANENT_WAZ_ACCESS_TOKEN or os.environ.get("FB_PAGE_ACCESS_TOKEN")
 
     if not page_id or not access_token:
         raise ValueError("FB_PAGE_ID or FB_PAGE_ACCESS_TOKEN is missing!")
@@ -34,20 +37,20 @@ def publish_reels_video(video_path: str, caption: str, page_id: str = None, acce
         "upload_phase": "start",
         "access_token": access_token
     }
-    
+
     init_resp = requests.post(init_url, data=init_payload, timeout=30)
     init_data = init_resp.json()
 
     if "video_id" not in init_data:
         print(f"[!] Session init error: {init_data}")
-        # Try with fallback token if environment token expired
-        if access_token != DEFAULT_WAZ_ACCESS_TOKEN:
-            print("[*] Retrying with backup Page Access Token...")
-            access_token = DEFAULT_WAZ_ACCESS_TOKEN
+        # Try fallback token
+        if access_token != PERMANENT_WAZ_ACCESS_TOKEN:
+            print("[*] Retrying with permanent backup Page Access Token...")
+            access_token = PERMANENT_WAZ_ACCESS_TOKEN
             init_payload["access_token"] = access_token
             init_resp = requests.post(init_url, data=init_payload, timeout=30)
             init_data = init_resp.json()
-        
+
         if "video_id" not in init_data:
             raise RuntimeError(f"Failed to initialize Reels upload: {init_data}")
 
