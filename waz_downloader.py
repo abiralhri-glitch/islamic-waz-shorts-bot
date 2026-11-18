@@ -1,8 +1,8 @@
 """
 Islamic Waz Short Reels Downloader & Anti-Copyright Engine
 Downloads, optimizes, and prepares viral 9:16 vertical Waz reels
-for Mizanur Rahman Azhari, Abu Toha Adnan, Allama Sayedi, Ahmadullah, etc.
-Includes a rich verified archive pool of authentic Bangla Waz & lectures.
+with real speaker video footage (Mizanur Rahman Azhari, Abu Toha Adnan, Allama Sayedi, Ahmadullah).
+Includes duplicate prevention tracking (used_waz.json).
 """
 
 import os
@@ -17,59 +17,110 @@ from pathlib import Path
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
-WAZ_SCHOLARS_QUERIES = [
+HISTORY_FILE = "used_waz.json"
+
+# Authentic Real-Speaker Video Shorts (Real face footage of scholars speaking)
+AUTHENTIC_SPEAKER_REELS = [
+    # মিজানুর রহমান আজহারী
     {
         "scholar": "মিজানুর রহমান আজহারী",
-        "hashtag": "#mizanur_rahman_azhari",
-        "queries": [
-            "mizanur rahman azhari emotional short bayan reels",
-            "azhari best motivational speech islamic shorts",
-            "মিজানুর রহমান আজহারী সেরা শর্ট ওয়াজ",
-            "azhari heart touching waz reels"
-        ]
+        "title": "মিজানুর রহমান আজহারী: হৃদয়স্পর্শী নসিহত ও জীবনের মূল্যায়ন",
+        "url": "https://www.youtube.com/shorts/6r9r87KxPPM",
+        "hashtag": "#mizanur_rahman_azhari"
+    },
+    {
+        "scholar": "মিজানুর রহমান আজহারী",
+        "title": "মিজানুর রহমান আজহারী: পিতামাতার মর্যাদা ও ভালোবাসা",
+        "url": "https://www.youtube.com/shorts/cgiYvYaIFG8",
+        "hashtag": "#mizanur_rahman_azhari"
+    },
+    {
+        "scholar": "মিজানুর রহমান আজহারী",
+        "title": "মিজানুর রহমান আজহারী: আল্লাহর রহমত ও খাঁটি তওবা",
+        "url": "https://www.youtube.com/shorts/RYR9LJ-noiU",
+        "hashtag": "#mizanur_rahman_azhari"
+    },
+    {
+        "scholar": "মিজানুর রহমান আজহারী",
+        "title": "মিজানুর রহমান আজহারী: ঈমানি জীবন ও তাকওয়ার পথ",
+        "url": "https://www.youtube.com/shorts/ZOAfTjSuItg",
+        "hashtag": "#mizanur_rahman_azhari"
+    },
+
+    # আবু ত্বহা মোহাম্মদ আদনান
+    {
+        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
+        "title": "আবু ত্বহা মোহাম্মদ আদনান: টেনশন করো না, আল্লাহ সাথে আছেন",
+        "url": "https://www.youtube.com/shorts/FMwP2Nq78Jg",
+        "hashtag": "#abutohaadnan"
     },
     {
         "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
-        "hashtag": "#abutohaadnan",
-        "queries": [
-            "abu toha muhammad adnan emotional status shorts",
-            "abu toha adnan powerful bayan waz shorts",
-            "আবু ত্বহা মুহাম্মদ আদনান গুরুত্বপূর্ণ নসিহত",
-            "abu toha end times reminder reels"
-        ]
+        "title": "আবু ত্বহা মোহাম্মদ আদনান: আখিরাতের প্রস্তুতি ও অন্তরের প্রশান্তি",
+        "url": "https://www.youtube.com/shorts/7tOiZnzuh84",
+        "hashtag": "#abutohaadnan"
     },
     {
-        "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
-        "hashtag": "#delowarhossainsayedi",
-        "queries": [
-            "delowar hossain sayedi emotional bayan shorts",
-            "allama sayedi legendary waz clips reels",
-            "আল্লামা সাঈদীর সেরা আবেগঘন বয়ান",
-            "allama sayedi touching reminder status"
-        ]
+        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
+        "title": "আবু ত্বহা মোহাম্মদ আদনান: শেষ জামানার ফিতনা ও ঈমান রক্ষা",
+        "url": "https://www.youtube.com/shorts/TypV9OOx6mU",
+        "hashtag": "#abutohaadnan"
+    },
+    {
+        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
+        "title": "আবু ত্বহা মোহাম্মদ আদনান: খাঁটি মুমিনের গুণাবলী ও নসিহত",
+        "url": "https://www.youtube.com/shorts/1emQT5BE3mE",
+        "hashtag": "#abutohaadnan"
+    },
+
+    # শায়খ আহমাদুল্লাহ
+    {
+        "scholar": "শায়খ আহমাদুল্লাহ",
+        "title": "শায়খ আহমাদুল্লাহ: দোয়ার ফজিলত ও কবুলের গোপন রহস্য",
+        "url": "https://www.youtube.com/shorts/yXH8rPQ3l2M",
+        "hashtag": "#shaykhahmadullah"
     },
     {
         "scholar": "শায়খ আহমাদুল্লাহ",
-        "hashtag": "#shaykhahmadullah",
-        "queries": [
-            "shaykh ahmadullah islamic advice short video",
-            "ahmadullah sunnah life hacks shorts",
-            "শায়খ আহমাদুল্লাহ উপদেশমূলক ইসলামিক রিলস",
-            "shaykh ahmadullah important fatwa advice reels"
-        ]
+        "title": "শায়খ আহমাদুল্লাহ: উত্তম চরিত্রের মহত্ত্ব ও রাসূলের সুন্নত",
+        "url": "https://www.youtube.com/shorts/y31MzRdIDPo",
+        "hashtag": "#shaykhahmadullah"
     },
     {
-        "scholar": "মুফতি জামশেদ মজুমদার",
-        "hashtag": "#jamshedmajumdar",
-        "queries": [
-            "mufti jamshed majumdar emotional waz shorts",
-            "মুফতি জামশেদ মজুমদার চমৎকার বয়ান",
-            "jamshed majumdar islamic reminder reels"
-        ]
+        "scholar": "শায়খ আহমাদুল্লাহ",
+        "title": "শায়খ আহমাদুল্লাহ: বরকত ও রিজিকের মূল চাবিকাঠি",
+        "url": "https://www.youtube.com/shorts/qbb6QJBYBbE",
+        "hashtag": "#shaykhahmadullah"
+    },
+    {
+        "scholar": "শায়খ আহমাদুল্লাহ",
+        "title": "শায়খ আহমাদুল্লাহ: দৈনন্দিন জীবনে সুন্নাহ পালনের নিয়ম",
+        "url": "https://www.youtube.com/shorts/1D0U_fUqhAs",
+        "hashtag": "#shaykhahmadullah"
+    },
+
+    # আল্লামা দেলাওয়ার হোসাইন সাঈদী
+    {
+        "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
+        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কোরআনের আলো ও হেদায়েতের ডাক",
+        "url": "https://www.youtube.com/shorts/QV8QDT5S4Qg",
+        "hashtag": "#delowarhossainsayedi"
+    },
+    {
+        "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
+        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কালজয়ী আবেগঘন শ্রেষ্ঠ নসিহত",
+        "url": "https://www.youtube.com/shorts/u92CrHYHka4",
+        "hashtag": "#delowarhossainsayedi"
+    },
+    {
+        "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
+        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: তাওহিদের দাওয়াত ও অবিচল ঈমান",
+        "url": "https://www.youtube.com/shorts/aU3P61m2CwA",
+        "hashtag": "#delowarhossainsayedi"
     }
 ]
 
-# Verified Public Domain & Archive.org Authentic Bangla Waz / Speech Collection
+# Verified Public Domain & Archive.org Authentic Bangla Waz / Speech Collection (Safe Fallback)
 VERIFIED_WAZ_COLLECTION = [
     {
         "title": "আবু ত্বহা মুহাম্মদ আদনান: অন্তরের প্রশান্তি ও তাওবার গুরুত্ব",
@@ -93,7 +144,7 @@ VERIFIED_WAZ_COLLECTION = [
         "video_bg": "https://archive.org/download/nature_rainfall_hd/FernCreekFalls-720.mp4"
     },
     {
-        "title": "মিজানুর রহমান আজহারী: পিতামাতার মর্যাদা ও তাদের প্রতি কর্তব্য",
+        "title": "মিজানুর রহমান আজহারী: পিতামাতার মর্যাদা ও তাদের প্রতি कर्तव्य",
         "scholar": "মিজানুর রহমান আজহারী",
         "hashtag": "#mizanur_rahman_azhari",
         "audio_url": "https://archive.org/download/abu-toha-bangla-waz-mahfil/Pitamatar%20Khidmot%20-%20Azhari.mp3",
@@ -108,42 +159,59 @@ VERIFIED_WAZ_COLLECTION = [
     }
 ]
 
-# Guaranteed working nature motion backgrounds
 VERIFIED_MOTION_BACKGROUNDS = [
     "https://archive.org/download/nature_rainfall_hd/FernCreekFalls-720.mp4",
     "https://archive.org/download/RaindropsOnWindow720p/Raindrops720p.mp4",
     "https://archive.org/download/WaterStreamForest720p/WaterStream720p.mp4"
 ]
 
-def search_and_download_online_waz(query: str, output_path: str, max_duration: int = 90) -> bool:
-    """Download vertical Waz reel using yt-dlp with android client and fallback."""
-    logging.info(f"Searching yt-dlp for online Waz reel: '{query}'")
+
+def load_used_history() -> set:
+    if os.path.exists(HISTORY_FILE):
+        try:
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                return set(json.load(f))
+        except Exception:
+            return set()
+    return set()
+
+
+def save_used_history(used_set: set):
+    try:
+        with open(HISTORY_FILE, "w", encoding="utf-8") as f:
+            json.dump(list(used_set), f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        logging.warning(f"Failed to save history: {e}")
+
+
+def download_real_speaker_video(video_url: str, output_path: str, max_duration: int = 90) -> bool:
+    logging.info(f"Downloading authentic speaker reel from: {video_url}")
     cmd = [
         "yt-dlp",
-        "--default-search", "ytsearch5:",
-        f"ytsearch5:{query}",
+        video_url,
         "-f", "bestvideo[ext=mp4][height<=1080]+bestaudio[ext=m4a]/best[ext=mp4]/best",
         "--merge-output-format", "mp4",
-        "--match-filter", f"duration <= {max_duration} & duration >= 15",
+        "--match-filter", f"duration <= {max_duration} & duration >= 10",
         "--extractor-args", "youtube:player_client=android,web",
         "--no-playlist",
         "-o", output_path,
         "--max-downloads", "1"
     ]
     try:
-        res = subprocess.run(cmd, capture_output=True, text=True, timeout=90)
+        res = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         if res.returncode == 0 and os.path.exists(output_path) and os.path.getsize(output_path) > 100000:
-            logging.info(f"Successfully downloaded online Waz reel: {output_path} ({os.path.getsize(output_path)} bytes)")
+            logging.info(f"Successfully downloaded authentic reel: {output_path} ({os.path.getsize(output_path)} bytes)")
             return True
-        logging.warning(f"yt-dlp online search returned code {res.returncode}. Output: {res.stdout[-300:]}")
+        logging.warning(f"yt-dlp returned {res.returncode}. Output: {res.stdout[-300:]}")
     except Exception as e:
-        logging.warning(f"yt-dlp online search failed: {e}")
+        logging.warning(f"yt-dlp download failed: {e}")
     return False
+
 
 def apply_anti_copyright_to_waz(input_path: str, output_path: str, title: str, scholar: str) -> bool:
     """Apply FFmpeg anti-copyright filter, vertical 9:16 crop, and typography header."""
-    clean_title = re.sub(r'[^wsঀ-৿]', '', title).strip()[:40]
-    clean_scholar = re.sub(r'[^wsঀ-৿]', '', scholar).strip()[:30]
+    clean_title = re.sub(r'[^\w\sঀ-৿]', '', title).strip()[:40]
+    clean_scholar = re.sub(r'[^\w\sঀ-৿]', '', scholar).strip()[:30]
     
     vf = (
         "scale=1080:1920:force_original_aspect_ratio=increase,"
@@ -153,7 +221,6 @@ def apply_anti_copyright_to_waz(input_path: str, output_path: str, title: str, s
         f"drawtext=text='{clean_scholar}':fontcolor=white:fontsize=48:x=(w-text_w)/2:y=60,"
         f"drawtext=text='{clean_title}':fontcolor=yellow:fontsize=36:x=(w-text_w)/2:y=130"
     )
-    
     af = "asetrate=44100*1.03,atempo=0.99,volume=1.8,aecho=0.8:0.7:20:0.15"
     
     cmd = [
@@ -179,15 +246,15 @@ def apply_anti_copyright_to_waz(input_path: str, output_path: str, title: str, s
         logging.error(f"FFmpeg execution failed: {e}")
     return False
 
+
 def synthesize_fallback_waz_reel(output_path: str) -> dict:
     """Synthesize vertical Islamic Waz reel using verified audio lectures + nature background."""
     waz_item = random.choice(VERIFIED_WAZ_COLLECTION)
     bg_url = random.choice(VERIFIED_MOTION_BACKGROUNDS)
-    
     os.makedirs("downloads", exist_ok=True)
     temp_audio = "downloads/waz_audio_temp.mp3"
     temp_bg = "downloads/waz_bg_temp.mp4"
-    
+
     logging.info(f"Downloading verified Waz audio from: {waz_item['audio_url']}")
     try:
         r_audio = requests.get(waz_item['audio_url'], timeout=40, stream=True)
@@ -197,19 +264,11 @@ def synthesize_fallback_waz_reel(output_path: str) -> dict:
                     f.write(chunk)
             logging.info(f"Audio downloaded: {temp_audio} ({os.path.getsize(temp_audio)} bytes)")
         else:
-            logging.warning(f"Audio download returned HTTP {r_audio.status_code}, generating synthetic tone")
-            # Synthesize voice-like tone fallback
-            subprocess.run([
-                "ffmpeg", "-y", "-f", "lavfi", "-i", "anoisesrc=d=30:c=pink:r=44100:a=0.05",
-                "-c:a", "libmp3lame", temp_audio
-            ], check=True, timeout=20)
+            temp_audio = None
     except Exception as e:
-        logging.warning(f"Audio fetch error: {e}, generating fallback audio")
-        subprocess.run([
-            "ffmpeg", "-y", "-f", "lavfi", "-i", "anoisesrc=d=30:c=pink:r=44100:a=0.05",
-            "-c:a", "libmp3lame", temp_audio
-        ], check=True, timeout=20)
-        
+        logging.warning(f"Audio fetch error: {e}")
+        temp_audio = None
+
     logging.info(f"Downloading motion background from: {bg_url}")
     try:
         r_bg = requests.get(bg_url, timeout=40, stream=True)
@@ -224,9 +283,9 @@ def synthesize_fallback_waz_reel(output_path: str) -> dict:
         logging.warning(f"Background fetch error: {e}")
         temp_bg = None
 
-    clean_title = re.sub(r'[^wsঀ-৿]', '', waz_item['title']).strip()[:40]
-    clean_scholar = re.sub(r'[^wsঀ-৿]', '', waz_item['scholar']).strip()[:30]
-
+    clean_title = re.sub(r'[^\w\sঀ-৿]', '', waz_item['title']).strip()[:40]
+    clean_scholar = re.sub(r'[^\w\sঀ-৿]', '', waz_item['scholar']).strip()[:30]
+    
     vf = (
         "scale=1080:1920:force_original_aspect_ratio=increase,"
         "crop=1080:1920,"
@@ -237,43 +296,20 @@ def synthesize_fallback_waz_reel(output_path: str) -> dict:
     )
     af = "asetrate=44100*1.03,atempo=0.99,volume=1.9,aecho=0.8:0.7:20:0.15"
 
-    if temp_bg and os.path.exists(temp_bg) and os.path.getsize(temp_bg) > 50000:
+    if temp_bg and os.path.exists(temp_bg) and temp_audio and os.path.exists(temp_audio):
         cmd = [
             "ffmpeg", "-y",
             "-stream_loop", "-1", "-i", temp_bg,
             "-i", temp_audio,
-            "-map", "0:v:0",
-            "-map", "1:a:0",
+            "-map", "0:v:0", "-map", "1:a:0",
             "-vf", vf,
             "-af", af,
-            "-c:v", "libx264",
-            "-preset", "faster",
-            "-crf", "23",
-            "-c:a", "aac",
-            "-b:a", "128k",
+            "-c:v", "libx264", "-preset", "faster", "-crf", "23",
+            "-c:a", "aac", "-b:a", "128k",
             "-t", "45",
             output_path
         ]
-    else:
-        cmd = [
-            "ffmpeg", "-y",
-            "-f", "lavfi", "-i", "color=c=#0d2319:s=1080x1920:d=45:r=30",
-            "-i", temp_audio,
-            "-map", "0:v:0",
-            "-map", "1:a:0",
-            "-vf", vf,
-            "-af", af,
-            "-c:v", "libx264",
-            "-preset", "faster",
-            "-crf", "23",
-            "-c:a", "aac",
-            "-b:a", "128k",
-            "-t", "45",
-            output_path
-        ]
-        
-    subprocess.run(cmd, check=True, timeout=90)
-    logging.info(f"Synthesized vertical Waz reel: {output_path} ({os.path.getsize(output_path)} bytes)")
+        subprocess.run(cmd, check=True, timeout=90)
     
     caption = (
         f"🎙️ {waz_item['title']}\n\n"
@@ -281,7 +317,6 @@ def synthesize_fallback_waz_reel(output_path: str) -> dict:
         f"আল্লাহ তাআলা আমাদের সবাইকে দ্বীনের সঠিক বুঝ দান করুন এবং আমলে আনার তাওফিক দান করুন। আমিন। 🤲\n\n"
         f"{waz_item['hashtag']} #IslamicWaz #WazShorts #BanglaWaz #IslamicReels #Sunnah #IslamicReminder #সেরা_ইসলামিক_শর্ট_ওয়াজ"
     )
-    
     return {
         "video_path": output_path,
         "caption": caption,
@@ -289,37 +324,46 @@ def synthesize_fallback_waz_reel(output_path: str) -> dict:
         "scholar": waz_item['scholar']
     }
 
+
 def download_and_prepare_waz_reel(output_dir="downloads") -> dict:
-    """Master entry point for obtaining and preparing vertical Islamic Waz reel."""
+    """Master entry point for obtaining and preparing authentic vertical Islamic Waz reel."""
     os.makedirs(output_dir, exist_ok=True)
     raw_video = os.path.join(output_dir, "waz_raw.mp4")
     processed_video = os.path.join(output_dir, "waz_processed.mp4")
 
-    # Pick random scholar & query
-    scholar_info = random.choice(WAZ_SCHOLARS_QUERIES)
-    query = random.choice(scholar_info["queries"])
-    scholar_name = scholar_info["scholar"]
-    hashtag = scholar_info["hashtag"]
+    used_history = load_used_history()
+    available = [item for item in AUTHENTIC_SPEAKER_REELS if item["url"] not in used_history]
+    if not available:
+        used_history.clear()
+        available = AUTHENTIC_SPEAKER_REELS
 
-    if search_and_download_online_waz(query, raw_video):
-        title = f"{scholar_name} এর মূল্যবান ইসলামিক নসিহত"
-        if apply_anti_copyright_to_waz(raw_video, processed_video, title, scholar_name):
+    random.shuffle(available)
+    selected = available[0]
+    used_history.add(selected["url"])
+    save_used_history(used_history)
+
+    logging.info(f"Selected authentic speaker reel: {selected['title']}")
+    
+    if download_real_speaker_video(selected["url"], raw_video):
+        if apply_anti_copyright_to_waz(raw_video, processed_video, selected["title"], selected["scholar"]):
             caption = (
-                f"🎙️ {scholar_name} এর মূল্যবান ইসলামিক নসিহত ও গুরুত্বপূর্ণ আলোচনা।\n\n"
+                f"🎙️ {selected['title']}\n\n"
+                f"বক্তা: {selected['scholar']}\n"
                 f"দ্বীন প্রচারের স্বার্থে ভিডিওটি শেয়ার করুন এবং পেজটি ফলো করে সাথেই থাকুন।\n\n"
-                f"{hashtag} #IslamicWaz #BanglaWaz #WazReels #IslamicShorts #Azhari #AbuToha #Sayedi #Ahmadullah #সেরা_ইসলামিক_শর্ট_ওয়াজ"
+                f"{selected['hashtag']} #IslamicWaz #BanglaWaz #WazReels #IslamicShorts #Azhari #AbuToha #Sayedi #Ahmadullah #সেরা_ইসলামিক_শর্ট_ওয়াজ"
             )
             return {
                 "video_path": processed_video,
                 "caption": caption,
-                "title": title,
-                "scholar": scholar_name
+                "title": selected["title"],
+                "scholar": selected["scholar"]
             }
 
     # Fallback to guaranteed synthesis
     logging.info("Falling back to verified Islamic Waz synthesis pool...")
     return synthesize_fallback_waz_reel(processed_video)
 
-# Aliases for backwards compatibility with runner scripts
+
+# Backwards compatibility aliases
 prepare_waz_reel_for_publishing = download_and_prepare_waz_reel
 download_waz_reel = download_and_prepare_waz_reel
