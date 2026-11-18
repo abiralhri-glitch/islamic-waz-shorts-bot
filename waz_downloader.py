@@ -110,7 +110,6 @@ CURATED_YOUTUBE_SHORTS = [
     }
 ]
 
-# Dynamic Search Queries for Fresh Shorts on YouTube & TikTok
 DYNAMIC_SCHOLAR_QUERIES = [
     ("মিজানুর রহমান আজহারী", "মিজানুর রহমান আজহারী shorts #shorts", "#MizanurRahmanAzhari #AzhariWaz"),
     ("আবু ত্বহা মোহাম্মদ আদনান", "আবু ত্বহা আদনান shorts #shorts", "#AbuTohaAdnan #AbuTohaWaz"),
@@ -120,7 +119,6 @@ DYNAMIC_SCHOLAR_QUERIES = [
 ]
 
 def get_posted_signatures_from_facebook(page_id: str, access_token: str, limit: int = 100) -> set:
-    """ফেসবুক পেজ থেকে সরাসরি পূর্বে পোস্ট করা সকল ভিডিওর সিগনেচার ও সোর্স আইডি রিটার্ন করে"""
     signatures = set()
     if not access_token or not page_id:
         return signatures
@@ -163,21 +161,21 @@ def save_local_history(new_id: str):
         logging.warning(f"Failed to save local history: {e}")
 
 def download_youtube_short(video_url: str, output_path: str, max_duration: int = 90) -> bool:
-    """YouTube Shorts / TikTok থেকে ভিডিও ডাউনলোড করে (নো ফেসবুক)"""
     logging.info(f"Downloading short from: {video_url}")
     cmd = [
         "yt-dlp",
         video_url,
+        "--extractor-args", "youtube:player_client=android,ios,web",
         "-f", "bestvideo[ext=mp4][height<=1080]+bestaudio[ext=m4a]/best[ext=mp4]/best",
         "--merge-output-format", "mp4",
-        "--match-filter", f"duration <= {max_duration} & duration >= 15",
+        "--match-filter", f"duration <= {max_duration} & duration >= 8",
         "--no-playlist",
         "-o", output_path,
         "--max-downloads", "1"
     ]
     try:
         res = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
-        if (res.returncode in (0, 101)) and os.path.exists(output_path) and os.path.getsize(output_path) > 100000:
+        if (res.returncode in (0, 101)) and os.path.exists(output_path) and os.path.getsize(output_path) > 50000:
             logging.info(f"Downloaded short successfully: {output_path} ({os.path.getsize(output_path)} bytes)")
             return True
         logging.warning(f"yt-dlp download failed. rc={res.returncode}, stderr={res.stderr[-300:]}")
@@ -186,13 +184,13 @@ def download_youtube_short(video_url: str, output_path: str, max_duration: int =
     return False
 
 def search_dynamic_youtube_short(query: str, exclude_signatures: set, output_path: str) -> dict:
-    """YouTube এ সার্চ করে সম্পূর্ণ নতুন ও অপ্রকাশিত ভিডিও ডাউনলোড করে"""
     logging.info(f"Searching YouTube for fresh shorts: '{query}'")
     cmd = [
         "yt-dlp",
+        "--extractor-args", "youtube:player_client=android,ios,web",
         "--dump-json",
         "--no-warnings",
-        f"ytsearch8:{query}"
+        f"ytsearch10:{query}"
     ]
     try:
         res = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
@@ -206,13 +204,11 @@ def search_dynamic_youtube_short(query: str, exclude_signatures: set, output_pat
                 title = info.get("title", "")
                 src_id = f"yt_{vid}"
 
-                if dur < 15 or dur > 90:
+                if dur < 8 or dur > 90:
                     continue
                 if src_id in exclude_signatures or title[:40] in exclude_signatures:
-                    logging.info(f"Skipping already posted video: {src_id} | {title[:30]}")
                     continue
 
-                # Unposted fresh video found! Download it
                 watch_url = f"https://www.youtube.com/shorts/{vid}"
                 if download_youtube_short(watch_url, output_path, max_duration=90):
                     return {
