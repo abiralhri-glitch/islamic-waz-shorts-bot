@@ -37,5 +37,13 @@ def run():
         logging.error("Failed to publish Waz Reel to Facebook.")
         sys.exit(1)
 
+
+    # 3. Contextual Auto-Comment Responder
+    try:
+        from auto_comment_responder import run_comment_responder
+        run_comment_responder(page_type="waz", max_replies=10)
+    except Exception as e:
+        logging.warning(f"Auto comment responder warning: {e}")
+
 if __name__ == "__main__":
     run()
