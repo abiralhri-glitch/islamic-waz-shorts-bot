@@ -21,7 +21,26 @@ HISTORY_FILE = "used_waz.json"
 
 # Authentic Real-Speaker Video Shorts (Real face footage of scholars speaking)
 AUTHENTIC_SPEAKER_REELS = [
-    # মিজানুর রহমান আজহারী
+    # Facebook Reels (No bot check or IP blocking on GitHub Actions)
+    {
+        "scholar": "মিজানুর রহমান আজহারী",
+        "title": "মিজানুর রহমান আজহারী: হৃদয়স্পর্শী জীবনমুখী ওয়াজ",
+        "url": "https://www.facebook.com/reel/1225962079677785/",
+        "hashtag": "#mizanur_rahman_azhari"
+    },
+    {
+        "scholar": "মিজানুর রহমান আজহারী",
+        "title": "মিজানুর রহমান আজহারী: জীবনের শ্রেষ্ঠ নসিহত ও শিক্ষা",
+        "url": "https://www.facebook.com/reel/951615724563658/",
+        "hashtag": "#mizanur_rahman_azhari"
+    },
+    {
+        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
+        "title": "আবু ত্বহা মোহাম্মদ আদনান: শেষ জামানার ঈমান ও প্রস্তুতি",
+        "url": "https://www.facebook.com/reel/1370880155242381/",
+        "hashtag": "#abutohaadnan"
+    },
+    # মিজানুর রহমান আজহারী Shorts
     {
         "scholar": "মিজানুর রহমান আজহারী",
         "title": "মিজানুর রহমান আজহারী: হৃদয়স্পর্শী নসিহত ও জীবনের মূল্যায়ন",
@@ -40,13 +59,7 @@ AUTHENTIC_SPEAKER_REELS = [
         "url": "https://www.youtube.com/shorts/RYR9LJ-noiU",
         "hashtag": "#mizanur_rahman_azhari"
     },
-    {
-        "scholar": "মিজানুর রহমান আজহারী",
-        "title": "মিজানুর রহমান আজহারী: ঈমানি জীবন ও তাকওয়ার পথ",
-        "url": "https://www.youtube.com/shorts/ZOAfTjSuItg",
-        "hashtag": "#mizanur_rahman_azhari"
-    },
-    # আবু ত্বহা মোহাম্মদ আদনান
+    # আবু ত্বহা মোহাম্মদ আদনান Shorts
     {
         "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
         "title": "আবু ত্বহা মোহাম্মদ আদনান: টেনশন করো না, আল্লাহ সাথে আছেন",
@@ -59,19 +72,7 @@ AUTHENTIC_SPEAKER_REELS = [
         "url": "https://www.youtube.com/shorts/7tOiZnzuh84",
         "hashtag": "#abutohaadnan"
     },
-    {
-        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
-        "title": "আবু ত্বহা মোহাম্মদ আদনান: শেষ জামানার ফিতনা ও ঈমান রক্ষা",
-        "url": "https://www.youtube.com/shorts/TypV9OOx6mU",
-        "hashtag": "#abutohaadnan"
-    },
-    {
-        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
-        "title": "আবু ত্বহা মোহাম্মদ আদনান: খাঁটি মুমিনের গুণাবলী ও নসিহত",
-        "url": "https://www.youtube.com/shorts/1emQT5BE3mE",
-        "hashtag": "#abutohaadnan"
-    },
-    # শায়খ আহমাদুল্লাহ
+    # শায়খ আহমাদুল্লাহ Shorts
     {
         "scholar": "শায়খ আহমাদুল্লাহ",
         "title": "শায়খ আহমাদুল্লাহ: দোয়ার ফজিলত ও কবুলের গোপন রহস্য",
@@ -84,19 +85,7 @@ AUTHENTIC_SPEAKER_REELS = [
         "url": "https://www.youtube.com/shorts/y31MzRdIDPo",
         "hashtag": "#shaykhahmadullah"
     },
-    {
-        "scholar": "শায়খ আহমাদুল্লাহ",
-        "title": "শায়খ আহমাদুল্লাহ: বরকত ও রিজিকের মূল চাবিকাঠি",
-        "url": "https://www.youtube.com/shorts/qbb6QJBYBbE",
-        "hashtag": "#shaykhahmadullah"
-    },
-    {
-        "scholar": "শায়খ আহমাদুল্লাহ",
-        "title": "শায়খ আহমাদুল্লাহ: দৈনন্দিন জীবনে সুন্নাহ পালনের নিয়ম",
-        "url": "https://www.youtube.com/shorts/1D0U_fUqhAs",
-        "hashtag": "#shaykhahmadullah"
-    },
-    # আল্লামা দেলাওয়ার হোসাইন সাঈদী
+    # আল্লামা দেলাওয়ার হোসাইন সাঈদী Shorts
     {
         "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
         "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কোরআনের আলো ও হেদায়েতের ডাক",
@@ -108,16 +97,10 @@ AUTHENTIC_SPEAKER_REELS = [
         "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কালজয়ী আবেগঘন শ্রেষ্ঠ নসিহত",
         "url": "https://www.youtube.com/shorts/u92CrHYHka4",
         "hashtag": "#delowarhossainsayedi"
-    },
-    {
-        "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
-        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: তাওহিদের দাওয়াত ও অবিচল ঈমান",
-        "url": "https://www.youtube.com/shorts/aU3P61m2CwA",
-        "hashtag": "#delowarhossainsayedi"
     }
 ]
 
-# Verified Public Domain & Archive.org Authentic Bangla Waz / Speech Collection (Safe Fallback)
+# Verified Public Domain & Archive.org Authentic Bangla Waz Collection (100% 200 OK Audio URLs)
 VERIFIED_WAZ_COLLECTION = [
     {
         "title": "আল্লামা নুরুল ইসলাম ওলিপুরী: নামাজের গুরুত্ব ও ফজিলত",
@@ -132,28 +115,22 @@ VERIFIED_WAZ_COLLECTION = [
         "audio_url": "https://archive.org/download/AllamaNurulIslamOlipuri1/04.%20Kiyamot.mp3"
     },
     {
-        "title": "আবু ত্বহা মুহাম্মদ আদনান: অন্তরের প্রশান্তি ও তাওবার গুরুত্ব",
-        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
-        "hashtag": "#abutohaadnan",
-        "audio_url": "https://ia801503.us.archive.org/15/items/bangla-islamic-gojol-audio/Hasbi%20Rabbi%20Jallallah.mp3"
+        "title": "আল্লামা নুরুল ইসলাম ওলিপুরী: পর্দার বিধান ও পারিবারিক শান্তি",
+        "scholar": "আল্লামা নুরুল ইসলাম ওলিপুরী",
+        "hashtag": "#olipuri",
+        "audio_url": "https://archive.org/download/AllamaNurulIslamOlipuri1/02.%20Pardha.mp3"
     },
     {
-        "title": "শায়খ আহমাদুল্লাহ: দোয়ার ফজিলত ও আল্লাহর কাছে চাওয়ার নিয়ম",
-        "scholar": "শায়খ আহমাদুল্লাহ",
-        "hashtag": "#shaykhahmadullah",
-        "audio_url": "https://ia801503.us.archive.org/15/items/bangla-islamic-gojol-audio/Kotoi%20Sundor%20E%20Prithibi.mp3"
-    },
-    {
-        "title": "মিজানুর রহমান আজহারী: পিতামাতার মর্যাদা ও তাদের প্রতি হক",
-        "scholar": "মিজানুর রহমান আজহারী",
-        "hashtag": "#mizanur_rahman_azhari",
-        "audio_url": "https://ia801503.us.archive.org/15/items/bangla-islamic-gojol-audio/Nabiji%20Amar%20Porosh%20Moni.mp3"
+        "title": "আল্লামা নুরুল ইসলাম ওলিপুরী: আল্লাহর জিকির ও দিলের প্রশান্তি",
+        "scholar": "আল্লামা নুরুল ইসলাম ওলিপুরী",
+        "hashtag": "#olipuri",
+        "audio_url": "https://archive.org/download/AllamaNurulIslamOlipuri1/03.%20Zakir.mp3"
     }
 ]
 
-VERIFIED_MOTION_BACKGROUNDS = [
+# Fast, lightweight background motion loops (10-15MB each, never 400MB)
+FALLBACK_MOTION_BACKGROUNDS = [
     "https://archive.org/download/FernCreekFalls/FernCreekFalls-720_512kb.mp4",
-    "https://archive.org/download/rain1932/Rain_512kb.mp4",
     "https://archive.org/download/slow_green_leaves/SlowGreenLeaves.mp4"
 ]
 
@@ -209,7 +186,7 @@ def apply_anti_copyright_to_waz(input_path: str, output_path: str, title: str, s
         f"drawtext=text='{clean_title}':fontcolor=yellow:fontsize=36:x=(w-text_w)/2:y=130"
     )
     af = "asetrate=44100*1.03,atempo=0.99,volume=1.8,aecho=0.8:0.7:20:0.15"
-
+    
     cmd = [
         "ffmpeg", "-y",
         "-i", input_path,
@@ -234,13 +211,13 @@ def synthesize_fallback_waz_reel(output_path: str) -> dict:
     os.makedirs("downloads", exist_ok=True)
     temp_audio = "downloads/waz_audio_temp.mp3"
     temp_bg = "downloads/waz_bg_temp.mp4"
-
+    
     # Randomize choices
     shuffled_waz = list(VERIFIED_WAZ_COLLECTION)
     random.shuffle(shuffled_waz)
     waz_item = shuffled_waz[0]
-
-    # Try downloading audio
+    
+    # Try downloading audio from verified 200 OK URLs
     audio_downloaded = False
     for candidate in shuffled_waz:
         logging.info(f"Downloading verified Waz audio from: {candidate['audio_url']}")
@@ -258,14 +235,14 @@ def synthesize_fallback_waz_reel(output_path: str) -> dict:
         except Exception as e:
             logging.warning(f"Audio download attempt failed: {e}")
 
-    # Try downloading motion background
+    # Try downloading lightweight motion background
     bg_downloaded = False
-    shuffled_bgs = list(VERIFIED_MOTION_BACKGROUNDS)
+    shuffled_bgs = list(FALLBACK_MOTION_BACKGROUNDS)
     random.shuffle(shuffled_bgs)
     for bg_url in shuffled_bgs:
         logging.info(f"Downloading motion background from: {bg_url}")
         try:
-            r = requests.get(bg_url, timeout=40, stream=True)
+            r = requests.get(bg_url, timeout=30, stream=True)
             if r.status_code == 200:
                 with open(temp_bg, 'wb') as f:
                     for chunk in r.iter_content(chunk_size=8192):
@@ -291,10 +268,10 @@ def synthesize_fallback_waz_reel(output_path: str) -> dict:
     af = "asetrate=44100*1.03,atempo=0.99,volume=1.9,aecho=0.8:0.7:20:0.15"
 
     if bg_downloaded and audio_downloaded:
+        logging.info("Encoding Waz reel using downloaded background video and audio...")
         cmd = [
             "ffmpeg", "-y",
-            "-stream_loop", "-1",
-            "-i", temp_bg,
+            "-stream_loop", "-1", "-i", temp_bg,
             "-i", temp_audio,
             "-map", "0:v:0", "-map", "1:a:0",
             "-vf", vf,
@@ -305,12 +282,15 @@ def synthesize_fallback_waz_reel(output_path: str) -> dict:
             output_path
         ]
     else:
-        # Guaranteed synthetic gradient canvas if remote downloads fail
         logging.info("Using internal elegant synthetic 9:16 vertical canvas...")
+        if audio_downloaded:
+            audio_inputs = ["-i", temp_audio]
+        else:
+            audio_inputs = ["-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo"]
         cmd = [
             "ffmpeg", "-y",
             "-f", "lavfi", "-i", "color=c=0x0d1b2a:s=1080x1920:d=45",
-            "-i", temp_audio if audio_downloaded else "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+            *audio_inputs,
             "-vf", vf,
             "-c:v", "libx264", "-preset", "faster", "-crf", "23",
             "-c:a", "aac", "-b:a", "128k",
@@ -322,6 +302,8 @@ def synthesize_fallback_waz_reel(output_path: str) -> dict:
         res = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         if res.returncode != 0:
             logging.error(f"FFmpeg failed with returncode {res.returncode}: {res.stderr[-400:]}")
+        else:
+            logging.info(f"Synthesized reel successfully generated: {output_path} ({os.path.getsize(output_path)} bytes)")
     except Exception as e:
         logging.error(f"FFmpeg execution error: {e}")
 
