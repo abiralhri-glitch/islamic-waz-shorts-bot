@@ -165,7 +165,6 @@ def download_youtube_short(video_url: str, output_path: str, max_duration: int =
     cmd = [
         "yt-dlp",
         video_url,
-        "--extractor-args", "youtube:player_client=android,ios,web",
         "-f", "bestvideo[ext=mp4][height<=1080]+bestaudio[ext=m4a]/best[ext=mp4]/best",
         "--merge-output-format", "mp4",
         "--match-filter", f"duration <= {max_duration} & duration >= 8",
@@ -187,7 +186,6 @@ def search_dynamic_youtube_short(query: str, exclude_signatures: set, output_pat
     logging.info(f"Searching YouTube for fresh shorts: '{query}'")
     cmd = [
         "yt-dlp",
-        "--extractor-args", "youtube:player_client=android,ios,web",
         "--dump-json",
         "--no-warnings",
         f"ytsearch10:{query}"
