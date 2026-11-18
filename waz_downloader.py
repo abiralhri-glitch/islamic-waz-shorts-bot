@@ -19,6 +19,19 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 HISTORY_FILE = os.path.join(BASE_DIR, "posted_waz_history.json")
+# অপরিবর্তনযোগ্য স্থায়ী ব্ল্যাকলিস্ট (ফেসবুক থেকে ডিলিট করলেও কখনো পুনরায় আপলোড হবে না)
+PERMANENT_BANNED_SIGNATURES = {
+    "bank_ahmadullah_life_advice",
+    "bank_ahmadullah_dua",
+    "ahmadullah_life_advice.mp4",
+    "ahmadullah_dua.mp4",
+    "yt_yXH8rPQ3l2M",
+    "yt_y31MzRdIDPo",
+    "জীনরা খাবার কোথায় পায়",
+    "দোয়ার ফজিলত ও রবকে ডাকার গোপন রহস্য",
+    "উত্তম চরিত্র ও সুন্দর পারিবারিক জীবনের শিক্ষা"
+}
+
 DOWNLOAD_DIR = os.path.join(BASE_DIR, "downloads")
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
@@ -74,22 +87,14 @@ CURATED_YOUTUBE_SHORTS = [
         "nasihat": "সকাল ও সন্ধ্যার মাসনুন দোয়া এবং সূরা আল-কাহাফ নিয়মিত তিলাওয়াত করুন।",
         "hashtags": "#AbuTohaAdnan #SheshJamana #Eman #IslamicReels"
     },
-    # শায়খ আহমাদুল্লাহ
+    # নতুন ও অপ্রকাশিত খাঁটি ইউটিউব শর্টস কালেকশন
     {
-        "scholar": "শায়খ আহমাদুল্লাহ",
-        "title": "শায়খ আহমাদুল্লাহ: দোয়ার ফজিলত ও কবুলের গোপন রহস্য",
-        "url": "https://www.youtube.com/shorts/yXH8rPQ3l2M",
-        "src_id": "yt_yXH8rPQ3l2M",
-        "nasihat": "তাহাজ্জুদের সময় ও সেজদায় গিয়ে রবের কাছে আকুল হয়ে চান, দোয়া ফিরিয়ে দেওয়া হয় না।",
-        "hashtags": "#ShaykhAhmadullah #AhmadullahWaz #Dua #Sunnah"
-    },
-    {
-        "scholar": "শায়খ আহমাদুল্লাহ",
-        "title": "শায়খ আহমাদুল্লাহ: উত্তম চরিত্র ও সুন্দর পারিবারিক জীবন",
-        "url": "https://www.youtube.com/shorts/y31MzRdIDPo",
-        "src_id": "yt_y31MzRdIDPo",
-        "nasihat": "রাসুলুল্লাহ (সা.) বলেছেন: তোমাদের মধ্যে সর্বোত্তম ব্যক্তি সে, যে পরিবারের কাছে উত্তম।",
-        "hashtags": "#ShaykhAhmadullah #FamilyLife #Akhlaq #IslamicReminder"
+        "scholar": "মুফতি জামশেদ মজুমদার",
+        "title": "মুফতি জামশেদ মজুমদার: অন্তরের অহংকার ও হিংসা দূর করার উপায়",
+        "url": "https://www.youtube.com/shorts/wVwJqP1vD7c",
+        "src_id": "yt_wVwJqP1vD7c",
+        "nasihat": "অহংকার মানুষের সমস্ত নেক আমল জ্বালিয়ে পুড়িয়ে ছারখার করে দেয়। বিনয়ী হোন।",
+        "hashtags": "#MuftiJamshed #BanglaWaz #IslamicReminder #Sunnah"
     },
     # আল্লামা দেলাওয়ার হোসাইন সাঈদী
     {
