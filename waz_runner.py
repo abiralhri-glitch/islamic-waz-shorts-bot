@@ -136,22 +136,15 @@ def apply_anti_copyright_and_watermark(input_video_path: str, output_path: str):
     return output_path
 
 def generate_caption(meta: dict):
-    scholar = meta["scholar"]
-    title = meta["title"]
-    nasihat = meta["nasihat"]
-    hashtags = meta["hashtags"]
+    scholar = meta.get('scholar', 'ইসলামিক স্কলার')
+    title = meta.get('title', 'ওয়াজ শর্ট')
+    nasihat = meta.get('nasihat', '')
+    hashtags = meta.get('hashtags', '')
 
     caption = (
-        f"🎙️ {title}
-
-"
-        f"💡 জীবনঘনিষ্ঠ মূল্যবান নসিহত:
-"{nasihat}"
-
-"
-        f"দ্বীনের সুন্দর বার্তা ছড়িয়ে দিতে ভিডিওটি লাইক করুন ও শেয়ার করে টাইমলাইনে রেখে দিন। 🤍🤲
-
-"
+        f"🎙️ {title}\n\n"
+        f"💡 জীবনঘনিষ্ঠ মূল্যবান নসিহত:\n{nasihat}\n\n"
+        f"দ্বীনের সুন্দর বার্তা ছড়িয়ে দিতে ভিডিওটি লাইক করুন ও শেয়ার করে টাইমলাইনে রেখে দিন। 🤍🤲\n\n"
         f"{hashtags} #IslamicWaz #WazReels #ViralShorts #Sunnah"
     )
     return caption
