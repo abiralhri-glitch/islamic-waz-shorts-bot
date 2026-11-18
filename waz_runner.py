@@ -15,7 +15,7 @@ import requests
 import imageio_ffmpeg
 from config import BASE_DIR, DOWNLOAD_DIR, OUTPUT_DIR, ASSETS_DIR, WAZ_BANK_DIR
 from fb_publisher import publish_reels_video
-from auto_comment_responder import reply_to_recent_comments
+# auto comment handled dynamically
 
 FFMPEG_EXE = imageio_ffmpeg.get_ffmpeg_exe()
 WATERMARK_PNG = os.path.join(ASSETS_DIR, "watermark_waz.png")
@@ -188,7 +188,8 @@ def run():
 
     # Contextual Auto-Comment Responder
     try:
-        reply_to_recent_comments()
+        from auto_comment_responder import run_comment_responder
+        run_comment_responder(page_type="waz", max_replies=10)
     except Exception as e:
         print(f"[WARN] Auto-comment responder notice: {e}")
 
