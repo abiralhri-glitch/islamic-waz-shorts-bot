@@ -43,7 +43,12 @@ PERMANENT_BANNED_SIGNATURES = {
     "yt_y31MzRdIDPo",
     "জীনরা খাবার কোথায় পায়",
     "দোয়ার ফজিলত ও রবকে ডাকার গোপন রহস্য",
-    "উত্তম চরিত্র ও সুন্দর পারিবারিক জীবনের শিক্ষা"
+    "উত্তম চরিত্র ও সুন্দর পারিবারিক জীবনের শিক্ষা",
+    "bank_amir_hamza_pother_alo",
+    "amir_hamza_pother_alo.mp4",
+    "4356847881114890",
+    "bank_azhari_dile_shanti",
+    "bank_abutoha_rizik_borot"
 }
 
 # অফলাইন ব্যাকআপ ব্যাংক ক্লিপস (আজহারী, আবু ত্বহা, সাঈদী ও আমির হামজার ফ্রেশ ক্লিপস)
@@ -57,116 +62,12 @@ BANK_METADATA = [
         "hashtags": "#MizanurRahmanAzhari #Namaz #AzhariWaz #IslamicReminder #Sunnah"
     },
     {
-        "file": "azhari_dile_shanti.mp4",
-        "src_id": "bank_azhari_dile_shanti",
-        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
-        "title": "মাওলানা মিজানুর রহমান আজহারী: অন্তরের নীরব শান্তি ও রবের জিকির",
-        "nasihat": "জেনে রাখুন, একমাত্র আল্লাহর জিকিরেই রয়েছে অন্তরের প্রকৃত পরম শান্তি।",
-        "hashtags": "#MizanurRahmanAzhari #Zikr #PeaceOfMind #AzhariShorts #ViralWaz"
-    },
-    {
-        "file": "abutoha_rizik_borot.mp4",
-        "src_id": "bank_abutoha_rizik_borot",
-        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
-        "title": "আবু ত্বহা মোহাম্মদ আদনান: রিজিকের অফুরন্ত বরকত ও হালাল উপার্জন",
-        "nasihat": "হারাম থেকে নিজেকে বাঁচিয়ে রাখুন, অল্প হলেও হালাল রিজিকের মধ্যে আল্লাহ বরকত দেন।",
-        "hashtags": "#AbuTohaAdnan #Rizik #HalalEarning #AbuTohaWaz #Tawakkul"
-    },
-    {
         "file": "sayedi_jannat_jahannam.mp4",
         "src_id": "bank_sayedi_jannat_jahannam",
         "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
         "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: জান্নাতের অপার্থিব নিয়ামত ও মোমেনের পুরস্কার",
         "nasihat": "দুনিয়ার কষ্ট কয়েকদিনের, কিন্তু মুমিনের জন্য জান্নাতের সুখ চিরস্থায়ী। নেক আমল করুন।",
         "hashtags": "#DelowarHossainSayedi #AllamaSayedi #Jannat #SayediWaz #QuranerDawat"
-    },
-    {
-        "file": "amir_hamza_pother_alo.mp4",
-        "src_id": "bank_amir_hamza_pother_alo",
-        "scholar": "মুফতি আমির হামজা",
-        "title": "মুফতি আমির হামজা: জীবনের বাঁকে বাঁকে হেদায়েত ও পথের আলো",
-        "nasihat": "আল্লাহর দিকে এক কদম বাড়ালে তিনি আপনার দিকে দশ কদম এগিয়ে আসবেন।",
-        "hashtags": "#AmirHamza #AmirHamzaWaz #Hedayet #BanglaWaz #Sunnah"
-    },
-    {
-        "file": "ahmadullah_amol_nasihat.mp4",
-        "src_id": "bank_ahmadullah_amol_nasihat",
-        "scholar": "শায়খ আহমাদুল্লাহ",
-        "title": "শায়খ আহমাদুল্লাহ: প্রতিদিন করার মত ছোট ছোট কিছু আমল ও ফজিলত",
-        "nasihat": "দৈনন্দিন ছোট ছোট নেক আমলই আখিরাতে আপনার মিজান ভারী করে দিবে। নিয়মিত আমল করুন।",
-        "hashtags": "#ShaykhAhmadullah #AhmadullahWaz #IslamicReminder #Sunnah #DailyAmol"
-    },
-    {
-        "file": "azhari_jiber_mulya.mp4",
-        "src_id": "bank_azhari_jiber_mulya",
-        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
-        "title": "মাওলানা মিজানুর রহমান আজহারী: জীবনের শ্রেষ্ঠ মূল্যায়ন ও সময় সচেতনতা",
-        "nasihat": "প্রতিটি নিঃশ্বাস এক একটি মূল্যবান নেয়ামত। দুনিয়ার মোহে পড়ে আখিরাত ভুলে যাবেন না।",
-        "hashtags": "#MizanurRahmanAzhari #AzhariWaz #IslamicReminder #WazShorts #BanglaWaz"
-    },
-    {
-        "file": "azhari_smriti_roye_jay.mp4",
-        "src_id": "bank_azhari_smriti_roye_jay",
-        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
-        "title": "মাওলানা মিজানুর রহমান আজহারী: মানুষ চলে যায় কিন্তু নেক আমল রয়ে যায়",
-        "nasihat": "এমন কিছু নেক আমল রেখে যান যা কবরে আপনার আলোর কারণ হবে।",
-        "hashtags": "#MizanurRahmanAzhari #AzhariShorts #IslamicBayan #HeartTouching"
-    },
-    {
-        "file": "azhari_motivational.mp4",
-        "src_id": "bank_azhari_motivational",
-        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
-        "title": "মাওলানা মিজানুর রহমান আজহারী: হতাশ হবেন না, মহান রব আপনার সাথে আছেন",
-        "nasihat": "সব দরজা বন্ধ হয়ে গেলেও রবের রহমতের দরজা সর্বদা উন্মুক্ত।",
-        "hashtags": "#MizanurRahmanAzhari #MotivationalWaz #IslamicReminder #Tawakkul"
-    },
-    {
-        "file": "azhari_tobe_ki.mp4",
-        "src_id": "bank_azhari_tobe_ki",
-        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
-        "title": "মাওলানা মিজানুর রহমান আজহারী: পিতামাতার মর্যাদা ও তাদের প্রতি কর্তব্য",
-        "nasihat": "পিতামাতার সন্তুষ্টিতেই মহান আল্লাহর সন্তুষ্টি। তাদের সেবা করুন।",
-        "hashtags": "#ParentsInIslam #AzhariWaz #IslamicFamily #MizanurRahmanAzhari"
-    },
-    {
-        "file": "abutoha_jadu_shesh_jamana.mp4",
-        "src_id": "bank_abutoha_jadu_shesh_jamana",
-        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
-        "title": "আবু ত্বহা মোহাম্মদ আদনান: শেষ জামানায় ঈমান রক্ষা ও আত্মরক্ষা",
-        "nasihat": "সকাল ও সন্ধ্যার মাসনুন দোয়া এবং সূরা আল-কাহাফ নিয়মিত তিলাওয়াত করুন।",
-        "hashtags": "#AbuTohaAdnan #AbuTohaWaz #SheshJamana #Eman #IslamicReels"
-    },
-    {
-        "file": "abutoha_tawakkul.mp4",
-        "src_id": "bank_abutoha_tawakkul",
-        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
-        "title": "আবু ত্বহা মোহাম্মদ আদনান: টেনশন করো না, আল্লাহ অবশ্যই সাথে আছেন",
-        "nasihat": "বিপদাপদে আল্লাহর ওপর পূর্ণ তাওয়াক্কুল রাখুন, নিশ্চয়ই তিনি ধৈর্যশীলদের সাহায্য করেন।",
-        "hashtags": "#AbuTohaAdnan #AbuTohaWaz #Tawakkul #PeaceOfMind #Eman"
-    },
-    {
-        "file": "sayedi_emotional_waz.mp4",
-        "src_id": "bank_sayedi_emotional_waz",
-        "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
-        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কালজয়ী আবেগঘন নসিহত ও তওবার আহ্বান",
-        "nasihat": "নিশ্চয়ই মহান আল্লাহ তওবাকারীদের অত্যন্ত ভালোবাসেন।",
-        "hashtags": "#DelowarHossainSayedi #AllamaSayedi #SayediWaz #QuranerDawat"
-    },
-    {
-        "file": "sayedi_quraner_dawat.mp4",
-        "src_id": "bank_sayedi_quraner_dawat",
-        "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
-        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কোরআনের আলো ও হেদায়েতের ডাক",
-        "nasihat": "কোরআনের ছায়াতলে ফিরে আসুন, সেখানেই রয়েছে দুনিয়া ও আখিরাতের চূড়ান্ত মুক্তি।",
-        "hashtags": "#AllamaSayedi #SayediShorts #HeartTouching #Tawbah #Sunnah"
-    },
-    {
-        "file": "tariq_jamil_iman_reminder.mp4",
-        "src_id": "bank_tariq_jamil_iman_reminder",
-        "scholar": "মাওলানা তারেক জামিল",
-        "title": "মাওলানা তারেক জামিল: অন্তরের প্রশান্তি ও আল্লাহর অসীম রহমত",
-        "nasihat": "কঠিন বিপদেও হতাশ হবেন না, আল্লাহ তার বান্দার অতি নিকটে।",
-        "hashtags": "#MaulanaTariqJamil #TariqJamilBangla #HeartTouchingWaz #PeaceOfMind"
     }
 ]
 
