@@ -46,8 +46,48 @@ PERMANENT_BANNED_SIGNATURES = {
     "উত্তম চরিত্র ও সুন্দর পারিবারিক জীবনের শিক্ষা"
 }
 
-# অফলাইন ব্যাকআপ ব্যাংক ক্লিপস (যদি ইউটিউব ডাউনলোডে সাময়িক ইস্যু হয়)
+# অফলাইন ব্যাকআপ ব্যাংক ক্লিপস (আজহারী, আবু ত্বহা, সাঈদী ও আমির হামজার ফ্রেশ ক্লিপস)
 BANK_METADATA = [
+    {
+        "file": "azhari_namaz_er_gurutto.mp4",
+        "src_id": "bank_azhari_namaz_er_gurutto",
+        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
+        "title": "মাওলানা মিজানুর রহমান আজহারী: নামাজের গুরুত্ব ও অবহেলার কঠিন পরিণতি",
+        "nasihat": "সালাত হচ্ছে ঈমান ও কুফরের মাঝে প্রধান পার্থক্য। পাঁচ ওয়াক্ত সালাত সময়মতো আদায় করুন।",
+        "hashtags": "#MizanurRahmanAzhari #Namaz #AzhariWaz #IslamicReminder #Sunnah"
+    },
+    {
+        "file": "azhari_dile_shanti.mp4",
+        "src_id": "bank_azhari_dile_shanti",
+        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
+        "title": "মাওলানা মিজানুর রহমান আজহারী: অন্তরের নীরব শান্তি ও রবের জিকির",
+        "nasihat": "জেনে রাখুন, একমাত্র আল্লাহর জিকিরেই রয়েছে অন্তরের প্রকৃত পরম শান্তি।",
+        "hashtags": "#MizanurRahmanAzhari #Zikr #PeaceOfMind #AzhariShorts #ViralWaz"
+    },
+    {
+        "file": "abutoha_rizik_borot.mp4",
+        "src_id": "bank_abutoha_rizik_borot",
+        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
+        "title": "আবু ত্বহা মোহাম্মদ আদনান: রিজিকের অফুরন্ত বরকত ও হালাল উপার্জন",
+        "nasihat": "হারাম থেকে নিজেকে বাঁচিয়ে রাখুন, অল্প হলেও হালাল রিজিকের মধ্যে আল্লাহ বরকত দেন।",
+        "hashtags": "#AbuTohaAdnan #Rizik #HalalEarning #AbuTohaWaz #Tawakkul"
+    },
+    {
+        "file": "sayedi_jannat_jahannam.mp4",
+        "src_id": "bank_sayedi_jannat_jahannam",
+        "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
+        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: জান্নাতের অপার্থিব নিয়ামত ও মোমেনের পুরস্কার",
+        "nasihat": "দুনিয়ার কষ্ট কয়েকদিনের, কিন্তু মুমিনের জন্য জান্নাতের সুখ চিরস্থায়ী। নেক আমল করুন।",
+        "hashtags": "#DelowarHossainSayedi #AllamaSayedi #Jannat #SayediWaz #QuranerDawat"
+    },
+    {
+        "file": "amir_hamza_pother_alo.mp4",
+        "src_id": "bank_amir_hamza_pother_alo",
+        "scholar": "মুফতি আমির হামজা",
+        "title": "মুফতি আমির হামজা: জীবনের বাঁকে বাঁকে হেদায়েত ও পথের আলো",
+        "nasihat": "আল্লাহর দিকে এক কদম বাড়ালে তিনি আপনার দিকে দশ কদম এগিয়ে আসবেন।",
+        "hashtags": "#AmirHamza #AmirHamzaWaz #Hedayet #BanglaWaz #Sunnah"
+    },
     {
         "file": "ahmadullah_amol_nasihat.mp4",
         "src_id": "bank_ahmadullah_amol_nasihat",
