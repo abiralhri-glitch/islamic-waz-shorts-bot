@@ -1,9 +1,10 @@
 """
-Main 24/7 Automated Reels Publisher for 'সেরা ইসলামিক শর্ট ওয়াজ'
-১০০% আসল হুজুরদের স্টেজ/পোডিয়ামের লাইভ ভিডিও ফুটেজ (নো ওয়াটারফল/নো ফলব্যাক সিন)
-সোর্সিং পলিসি: শুধুমাত্র YouTube Shorts এবং TikTok (ফেসবুক থেকে কোনো ভিডিও নেওয়া সম্পূর্ণ নিষিদ্ধ)
-জিরো ডুপ্লিকেট পলিসি: এক পোস্ট কখনো দুইবার হবে না (Facebook Graph API + History ভেরিফিকেশন)
-১০০% স্বাভাবিক কণ্ঠ: নো কার্টুন পিচ-শিফটিং / নো asetrate
+Main Automated Reels & Videos Publisher for 'সেরা ইসলামিক শর্ট ওয়াজ'
+- দৈনিক মোট ১০টি পোস্ট (সকালে ২টি এবং দুপুর ১টার পর থেকে প্রতি ১ ঘণ্টা পর পর ৮টি)
+- সকল শীর্ষ সম্মানিত হুজুরদের ভেরিফাইড নতুন ও ট্রেন্ডিং নসিহত (আহমাদুল্লাহ, আজহারী, আবু ত্বহা, সাঈদী, আমির হামজা, তারেক জামিল, আব্দুল্লাহ জাহাঙ্গীর প্রমুখ)
+- কঠোর জিরো ডুপ্লিকেট পলিসি: ফেসবুক পেজের পূর্ববর্তী ১০০টি পোস্ট ও লোকাল হিস্টোরি যাচাই
+- ১০০% আসল লাইভ পোডিয়াম/স্টেজ ফুটেজ এবং স্বাভাবিক ন্যাচারাল কণ্ঠস্বর
+- পেজের স্থায়ী ক্রিস্টাল ক্লিয়ার ব্র্যান্ডেড ওয়াটারমার্ক
 """
 
 import os
@@ -12,6 +13,7 @@ import glob
 import json
 import time
 import random
+import datetime
 import subprocess
 import requests
 import imageio_ffmpeg
@@ -30,7 +32,8 @@ from waz_downloader import (
 FFMPEG_EXE = imageio_ffmpeg.get_ffmpeg_exe()
 WATERMARK_PNG = os.path.join(ASSETS_DIR, "watermark_waz.png")
 HISTORY_FILE = os.path.join(BASE_DIR, "posted_waz_history.json")
-# অপরিবর্তনযোগ্য স্থায়ী ব্ল্যাকলিস্ট (ফেসবুক থেকে ডিলিট করলেও কখনো পুনরায় আপলোড হবে না)
+
+# অপরিবর্তনযোগ্য স্থায়ী ব্ল্যাকলিস্ট
 PERMANENT_BANNED_SIGNATURES = {
     "bank_ahmadullah_life_advice",
     "bank_ahmadullah_dua",
@@ -43,38 +46,37 @@ PERMANENT_BANNED_SIGNATURES = {
     "উত্তম চরিত্র ও সুন্দর পারিবারিক জীবনের শিক্ষা"
 }
 
-
-# 11 Curated Real-Scene Scholar Bank Clips (Expanded)
+# অফলাইন ব্যাকআপ ব্যাংক ক্লিপস (যদি ইউটিউব ডাউনলোডে সাময়িক ইস্যু হয়)
 BANK_METADATA = [
     {
         "file": "azhari_jiber_mulya.mp4",
         "src_id": "bank_azhari_jiber_mulya",
-        "scholar": "মিজানুর রহমান আজহারী",
-        "title": "মিজানুর রহমান আজহারী: জীবনের শ্রেষ্ঠ মূল্যায়ন ও সময় সচেতনতা",
+        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
+        "title": "মাওলানা মিজানুর রহমান আজহারী: জীবনের শ্রেষ্ঠ মূল্যায়ন ও সময় সচেতনতা",
         "nasihat": "প্রতিটি নিঃশ্বাস এক একটি মূল্যবান নেয়ামত। দুনিয়ার মোহে পড়ে আখিরাত ভুলে যাবেন না।",
         "hashtags": "#MizanurRahmanAzhari #AzhariWaz #IslamicReminder #WazShorts #BanglaWaz"
     },
     {
         "file": "azhari_smriti_roye_jay.mp4",
         "src_id": "bank_azhari_smriti_roye_jay",
-        "scholar": "মিজানুর রহমান আজহারী",
-        "title": "মিজানুর রহমান আজহারী: মানুষ চলে যায় কিন্তু নেক আমল রয়ে যায়",
+        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
+        "title": "মাওলানা মিজানুর রহমান আজহারী: মানুষ চলে যায় কিন্তু নেক আমল রয়ে যায়",
         "nasihat": "এমন কিছু নেক আমল রেখে যান যা কবরে আপনার আলোর কারণ হবে।",
         "hashtags": "#MizanurRahmanAzhari #AzhariShorts #IslamicBayan #HeartTouching"
     },
     {
         "file": "azhari_motivational.mp4",
         "src_id": "bank_azhari_motivational",
-        "scholar": "মিজানুর রহমান আজহারী",
-        "title": "মিজানুর রহমান আজহারী: হতাশ হবেন না, মহান রব আপনার সাথে আছেন",
+        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
+        "title": "মাওলানা মিজানুর রহমান আজহারী: হতাশ হবেন না, মহান রব আপনার সাথে আছেন",
         "nasihat": "সব দরজা বন্ধ হয়ে গেলেও রবের রহমতের দরজা সর্বদা উন্মুক্ত।",
         "hashtags": "#MizanurRahmanAzhari #MotivationalWaz #IslamicReminder #Tawakkul"
     },
     {
         "file": "azhari_tobe_ki.mp4",
         "src_id": "bank_azhari_tobe_ki",
-        "scholar": "মিজানুর রহমান আজহারী",
-        "title": "মিজানুর রহমান আজহারী: পিতামাতার মর্যাদা ও তাদের প্রতি কর্তব্য",
+        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
+        "title": "মাওলানা মিজানুর রহমান আজহারী: পিতামাতার মর্যাদা ও তাদের প্রতি কর্তব্য",
         "nasihat": "পিতামাতার সন্তুষ্টিতেই মহান আল্লাহর সন্তুষ্টি। তাদের সেবা করুন।",
         "hashtags": "#ParentsInIslam #AzhariWaz #IslamicFamily #MizanurRahmanAzhari"
     },
@@ -110,7 +112,6 @@ BANK_METADATA = [
         "nasihat": "কোরআনের ছায়াতলে ফিরে আসুন, সেখানেই রয়েছে দুনিয়া ও আখিরাতের চূড়ান্ত মুক্তি।",
         "hashtags": "#AllamaSayedi #SayediShorts #HeartTouching #Tawbah #Sunnah"
     },
-
     {
         "file": "tariq_jamil_iman_reminder.mp4",
         "src_id": "bank_tariq_jamil_iman_reminder",
@@ -122,14 +123,17 @@ BANK_METADATA = [
 ]
 
 def apply_anti_copyright_and_watermark(input_video_path: str, output_path: str):
-    speed_factor = random.choice([1.015, 1.02, 1.025])
+    """
+    ভিডিওতে ওয়াটারমার্ক ও হালকা অ্যান্টি-কপিরাইট ফিল্টারিং প্রয়োগ (ন্যাচারাল সাউন্ড নিশ্চিত রেখে)
+    """
+    speed_factor = random.choice([1.015, 1.02])
     speed_v = f"setpts={1/speed_factor}*PTS"
     speed_a = f"atempo={speed_factor}"
 
     filter_complex = (
         f"[0:v]scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280,{speed_v}[v_scaled];"
         f"[v_scaled][1:v]overlay=0:0[v_final];"
-        f"[0:a]{speed_a},volume=1.2[a_final]"
+        f"[0:a]{speed_a},volume=1.15[a_final]"
     )
 
     cmd = [
@@ -139,7 +143,7 @@ def apply_anti_copyright_and_watermark(input_video_path: str, output_path: str):
         "-filter_complex", filter_complex,
         "-map", "[v_final]",
         "-map", "[a_final]",
-        "-c:v", "libx264", "-preset", "fast", "-crf", "22",
+        "-c:v", "libx264", "-preset", "fast", "-crf", "20",
         "-c:a", "aac", "-b:a", "192k",
         "-map_metadata", "-1",
         output_path
@@ -160,103 +164,120 @@ def generate_caption(title: str, scholar: str, nasihat: str, hashtags: str, src_
 
 def run():
     print("===========================================================")
-    print("🕌 Starting 'সেরা ইসলামিক শর্ট ওয়াজ' 24/7 Automated Reels Runner")
+    print("🕌 'সেরা ইসলামিক শর্ট ওয়াজ' দৈনিক ১০টি ট্রেন্ডিং ভিডিও অটোমেশন")
     print("===========================================================")
 
     page_id = FB_PAGE_ID or "1541701802352983"
     token = FB_PAGE_ACCESS_TOKEN
 
     # ১. ফেসবুক পেজ এবং লোকাল হিস্টোরি থেকে পূর্বের সকল পোস্ট করা সিগনেচার রিড করা
-    print("[1/5] Checking previously posted videos on Facebook Page to guarantee ZERO DUPLICATES...")
-    fb_posted = get_posted_signatures_from_facebook(page_id, token, limit=100)
-    local_posted = load_local_history()
-    all_excluded = fb_posted.union(local_posted).union(PERMANENT_BANNED_SIGNATURES)
-    print(f"[*] Found {len(all_excluded)} unique posted video signatures.")
+    print("[1/5] Checking previously posted videos on Facebook Page to guarantee ZERO DUPLICATE...")
+    fb_signatures = get_posted_signatures_from_facebook(page_id, token, limit=100)
+    history = load_local_history()
+    local_posted_ids = set(history.get("posted_ids", []))
+    all_posted_signatures = fb_signatures.union(local_posted_ids).union(PERMANENT_BANNED_SIGNATURES)
 
-    ts = int(time.time())
-    raw_download_path = os.path.join(DOWNLOAD_DIR, f"raw_waz_{ts}.mp4")
-    processed_output = os.path.join(OUTPUT_DIR, f"waz_reel_{ts}.mp4")
+    # দৈনিক পরিসংখ্যান ট্র্যাকিং
+    today_str = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
+    daily_stats = history.get("daily_stats", {})
+    if daily_stats.get("date") != today_str:
+        daily_stats = {"date": today_str, "total_posted": 0}
+        history["daily_stats"] = daily_stats
 
-    selected_meta = None
-    selected_video_path = None
+    # ২. পরবর্তী হুজুর/স্কলার রোটেশন নির্বাচন (সকল হুজুরদের সমান অনুপাত নিশ্চিত করতে)
+    last_scholar_idx = history.get("last_scholar_index", -1)
+    next_scholar_idx = (last_scholar_idx + 1) % len(DYNAMIC_SCHOLAR_QUERIES)
+    target_scholar, target_query, target_tags = DYNAMIC_SCHOLAR_QUERIES[next_scholar_idx]
+    print(f"[2/5] 🎯 বর্তমান স্লটের নির্বাচিত সম্মানিত স্কলার: {target_scholar} (#{next_scholar_idx+1}/{len(DYNAMIC_SCHOLAR_QUERIES)})")
 
-    # ২. YouTube Shorts কিউরেটেড কালেকশন চেক (অপ্রকাশিত ভিডিও খোঁজা)
-    unposted_curated = [item for item in CURATED_YOUTUBE_SHORTS if item["src_id"] not in all_excluded and item["title"][:40] not in all_excluded]
-    if unposted_curated:
-        chosen = random.choice(unposted_curated)
-        print(f"[*] Found unposted curated YouTube Short: {chosen['title']} ({chosen['src_id']})")
-        if download_youtube_short(chosen["url"], raw_download_path):
-            selected_meta = chosen
-            selected_video_path = raw_download_path
+    selected_item = None
+    downloaded_video = None
 
-    # ৩. যদি কিউরেটেড শর্টস শেষ হয়ে যায়, ডাইনামিক ইউটিউব সার্চ থেকে একদম নতুন ভিডিও ডাউনলোড
-    if not selected_video_path:
-        print("[*] Searching YouTube dynamically for fresh scholar shorts...")
-        shuffled_queries = list(DYNAMIC_SCHOLAR_QUERIES)
-        random.shuffle(shuffled_queries)
-        for scholar_name, search_q, hashtags in shuffled_queries:
-            search_res = search_dynamic_youtube_short(search_q, all_excluded, raw_download_path)
-            if search_res:
-                selected_meta = {
-                    "scholar": scholar_name,
-                    "title": f"{scholar_name}: {search_res['title'][:50]}",
-                    "src_id": search_res["src_id"],
-                    "nasihat": "রাসুলুল্লাহ (সা.) বলেছেন: যে ব্যক্তি মানুষকে কল্যাণের পথ দেখায়, সে কল্যাণকারীর সমান সওয়াব পাবে।",
-                    "hashtags": hashtags
-                }
-                selected_video_path = raw_download_path
+    # ৩. সোর্স নির্বাচন: প্রথমে কিউরেটেড ইউটিউব শর্টস থেকে ওই স্কলারের নতুন আনপোস্টেড ভিডিও খোঁজা
+    for item in CURATED_YOUTUBE_SHORTS:
+        if item.get("scholar") == target_scholar and item["src_id"] not in all_posted_signatures:
+            vid_path = download_youtube_short(item)
+            if vid_path:
+                selected_item = item
+                downloaded_video = vid_path
                 break
 
-    # ৪. যদি ইন্টারনেট সার্চেও কোনো কারণে না পাওয়া যায়, লোকাল ব্যাংক থেকে অপ্রকাশিত ক্লিপ বাছাই
-    if not selected_video_path:
-        print("[*] Selecting from unposted local scholar bank clips...")
-        unposted_bank = [b for b in BANK_METADATA if b["src_id"] not in all_excluded and b["title"][:40] not in all_excluded]
-        if unposted_bank:
-            chosen_bank = random.choice(unposted_bank)
-            bank_file_path = os.path.join(WAZ_BANK_DIR, chosen_bank["file"])
-            if not os.path.exists(bank_file_path):
-                bank_file_path = os.path.join(BASE_DIR, "assets_waz_bank", chosen_bank["file"])
-            if os.path.exists(bank_file_path):
-                selected_meta = chosen_bank
-                selected_video_path = bank_file_path
+    # ৪. কিউরেটেড শেষ হলে ডায়নামিক ইউটিউব শর্টস সার্চ (সর্বাধিক নতুন ও ট্রেন্ডিং)
+    if not selected_item:
+        dyn_item = search_dynamic_youtube_short(target_scholar, target_query, target_tags, all_posted_signatures)
+        if dyn_item:
+            vid_path = download_youtube_short(dyn_item)
+            if vid_path:
+                selected_item = dyn_item
+                downloaded_video = vid_path
 
-    # ৫. কঠোর জিরো-ডুপ্লিকেট চেক: যদি কোনো আনপোস্টেড ভিডিও না পাওয়া যায়, তবে কখনো পুরাতন ভিডিও আবার পোস্ট করা হবে না
-    if not selected_video_path or not os.path.exists(selected_video_path):
-        print("[!] All available videos have already been posted to the Facebook page!")
-        print("[!] STRICT ZERO DUPLICATE GUARD: Refusing to re-post any existing video. Halting run cleanly.")
+    # ৫. ইউটিউব ডাউনলোডে ব্যর্থ হলে সংরক্ষিত ব্যাংক থেকে বাছাই
+    if not selected_item:
+        print(f"⚠️ {target_scholar}-এর কোনো নতুন ইউটিউব ভিডিও পাওয়া যায়নি। অফলাইন ব্যাংক অনুসন্ধান...")
+        for b in BANK_METADATA:
+            if b.get("scholar") == target_scholar and b["src_id"] not in all_posted_signatures:
+                local_path = os.path.join(WAZ_BANK_DIR, b["file"])
+                if os.path.exists(local_path) and os.path.getsize(local_path) > 100000:
+                    selected_item = b
+                    downloaded_video = local_path
+                    break
+
+    # ফলব্যাক: ব্যাংকের যেকোনো অবশিষ্ট আনপোস্টেড ভিডিও
+    if not selected_item:
+        for b in BANK_METADATA:
+            if b["src_id"] not in all_posted_signatures:
+                local_path = os.path.join(WAZ_BANK_DIR, b["file"])
+                if os.path.exists(local_path) and os.path.getsize(local_path) > 100000:
+                    selected_item = b
+                    downloaded_video = local_path
+                    break
+
+    if not selected_item or not downloaded_video:
+        print("❌ কোনো নতুন বা আনপোস্টেড ভিডিও পাওয়া যায়নি। ডুপ্লিকেট রোধে সাইকেল স্থগিত।")
         return
 
-    print(f"[3/5] Processing real-scene vertical reel with watermark & 100% natural audio...")
-    print(f"[*] Scholar: {selected_meta['scholar']} | Title: {selected_meta['title']}")
-    apply_anti_copyright_and_watermark(selected_video_path, processed_output)
+    print(f"[3/5] ✅ ভিডিও চূড়ান্ত নির্বাচিত: {selected_item['title']} (src: {selected_item['src_id']})")
 
-    # ৬. ক্যাপশন জেনারেট ও ফেসবুকে রিলস আপলোড
+    # ৬. প্রসেসিং ও ওয়াটারমার্ক
+    ts = int(time.time())
+    processed_output = os.path.join(OUTPUT_DIR, f"waz_processed_{ts}.mp4")
+    print(f"[4/5] 🎨 ওয়াটারমার্ক ও প্রফেশনাল ব্রডকাস্ট ফ্রেম রেন্ডারিং...")
+    apply_anti_copyright_and_watermark(downloaded_video, processed_output)
+
+    # ৭. পাবলিশিং
     caption = generate_caption(
-        title=selected_meta["title"],
-        scholar=selected_meta["scholar"],
-        nasihat=selected_meta.get("nasihat", "আল্লাহর আনুগত্য ও রাসুলের সুন্নতের উপর জীবন গড়ুন।"),
-        hashtags=selected_meta.get("hashtags", "#IslamicWaz #WazReels #Sunnah"),
-        src_id=selected_meta["src_id"]
+        selected_item["title"],
+        selected_item["scholar"],
+        selected_item.get("nasihat", ""),
+        selected_item.get("hashtags", ""),
+        selected_item["src_id"]
     )
+    print(f"[5/5] 📤 ফেসবুকে রিলস আপলোড হচ্ছে (Page ID: {page_id})...")
+    pub_res = publish_reels_video(
+        page_id=page_id,
+        access_token=token,
+        video_path=processed_output,
+        description=caption,
+        title=selected_item["title"]
+    )
+    print(f"🚀 ফেসবুক আপলোড সম্পন্ন! রেজাল্ট: {pub_res}")
 
-    print(f"[4/5] Publishing Reel to Facebook Page: {page_id}...")
-    res = publish_reels_video(processed_output, caption=caption, title=selected_meta["title"])
-    print(f"🎉 Successfully Published Reel! Response: {res}")
+    # ৮. হিস্টোরি ও দৈনিক পরিসংখ্যান আপডেট
+    history["last_scholar_index"] = next_scholar_idx
+    if "posted_ids" not in history or not isinstance(history["posted_ids"], list):
+        history["posted_ids"] = []
+    history["posted_ids"].append(selected_item["src_id"])
+    daily_stats["total_posted"] = daily_stats.get("total_posted", 0) + 1
+    history["daily_stats"] = daily_stats
+    save_local_history(history)
+    print(f"📊 আজকের ইসলামিক শর্ট ওয়াজ পোস্টিং সংখ্যা: {daily_stats['total_posted']}/১০টি সম্পন্ন!")
 
-    save_local_history(selected_meta["src_id"])
-
-    # ক্লিনআপ
-    for p in [raw_download_path, processed_output]:
-        if os.path.exists(p):
-            try: os.remove(p)
-            except Exception: pass
-
-    # অটো-কমেন্ট রেসপন্ডার চালু
+    # ৯. টেম্প ক্লিনআপ
     try:
-        from auto_comment_responder import run_comment_responder
-        run_comment_responder(page_type="waz", max_replies=10)
-    except Exception as e:
-        print(f"[WARN] Auto-comment responder notice: {e}")
+        if os.path.exists(processed_output): os.remove(processed_output)
+        if "downloads" in downloaded_video and os.path.exists(downloaded_video): os.remove(downloaded_video)
+    except Exception:
+        pass
 
 if __name__ == "__main__":
     run()
