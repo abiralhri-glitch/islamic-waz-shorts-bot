@@ -225,6 +225,7 @@ def download_youtube_short(item: dict) -> str:
     logging.info(f"Downloading authentic YouTube Short: {item['title']} ({item['url']})")
     cmd = [
         "yt-dlp",
+        "--extractor-args", "youtube:player_client=ios,android",
         "-f", "bestvideo[height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
         "--merge-output-format", "mp4",
         "-o", output_path,
@@ -245,6 +246,7 @@ def search_dynamic_youtube_short(scholar_name: str, query: str, default_hashtags
     logging.info(f"Searching fresh trending YouTube Shorts for scholar: {scholar_name} ({query})")
     cmd = [
         "yt-dlp",
+        "--extractor-args", "youtube:player_client=ios,android",
         "--flat-playlist",
         "--match-filter", "duration <= 90",
         "--print", "%(id)s|||%(title)s|||%(duration)s",
