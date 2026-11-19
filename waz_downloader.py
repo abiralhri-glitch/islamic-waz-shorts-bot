@@ -1,10 +1,10 @@
 """
-Islamic Waz Short Reels Downloader & YouTube/TikTok Multi-Source Engine
+Islamic Waz Short Reels Downloader & Multi-Source Engine
 - ১০০% আসল হুজুরদের লাইভ মাহফিল ও নসিহতের আসল সিনেমাটিক শর্ট ভিডিও
-- সকল শীর্ষস্থানীয় সম্মানিত ইসলামিক স্কলারগণের অন্তর্ভুক্তিকরণ (আহমাদুল্লাহ, আজহারী, আবু ত্বহা, সাঈদী, আমির হামজা, তারেক জামিল, আব্দুল্লাহ জাহাঙ্গীর, হাফিজুর রহমান সিদ্দিকী প্রমুখ)
+- সকল শীর্ষস্থানীয় সম্মানিত ইসলামিক স্কলারগণের অন্তর্ভুক্তিকরণ (আহমাদুল্লাহ, আজহারী, আবু ত্বহা, সাঈদী, আমির হামজা, তারেক জামিল)
 - কঠোর জিরো-ডুপ্লিকেট পলিসি: ফেসবুক পেজের পূর্ববর্তী ১০০টি ভিডিওর মেটাডাটা ও হিস্টোরি যাচাই
 - ১০০% স্বাভাবিক কণ্ঠস্বর: কোনো কার্টুন পিচ-শিফটিং বা ভয়েস স্পিড ডিস্টরশন নয়
-- পেজের স্থায়ী ব্র্যান্ডেড ওয়াটারমার্ক: 'সেরা ইসলামিক শর্ট ওয়াজ'
+- Resilient Android-Embedded Client to bypass YouTube bot detection on cloud runners
 """
 
 import os
@@ -22,7 +22,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 HISTORY_FILE = os.path.join(BASE_DIR, "posted_waz_history.json")
 
-# অপরিবর্তনযোগ্য স্থায়ী ব্ল্যাকলিস্ট (পেজ থেকে ডিলিট করলেও কখনো পুনরায় আপলোড হবে না)
+# অপরিবর্তনযোগ্য স্থায়ী ব্ল্যাকলিস্ট
 PERMANENT_BANNED_SIGNATURES = {
     "bank_ahmadullah_life_advice",
     "bank_ahmadullah_dua",
@@ -43,9 +43,9 @@ PERMANENT_BANNED_SIGNATURES = {
 DOWNLOAD_DIR = os.path.join(BASE_DIR, "downloads")
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
-# সকল শীর্ষ সম্মানিত হুজুরদের ভেরিফাইড ট্রেন্ডিং ইউটিউব শর্টস কালেকশন (আজহারী, আবু ত্বহা ও সাঈদী অগ্রাধিকার)
+# সকল শীর্ষ সম্মানিত হুজুরদের ভেরিফাইড ট্রেন্ডিং ইউটিউব শর্টস কালেকশন
 CURATED_YOUTUBE_SHORTS = [
-    # ১. মাওলানা মিজানুর রহমান আজহারী (সর্বাধিক প্রাধান্য)
+    # ১. মাওলানা মিজানুর রহমান আজহারী
     {
         "scholar": "মাওলানা মিজানুর রহমান আজহারী",
         "title": "মাওলানা মিজানুর রহমান আজহারী: জীবনের শ্রেষ্ঠ নসিহত ও সময়ের মূল্যায়ন",
@@ -87,7 +87,7 @@ CURATED_YOUTUBE_SHORTS = [
         "hashtags": "#MizanurRahmanAzhari #MotivationalWaz #Tawakkul #Peace"
     },
 
-    # ২. আবু ত্বহা মোহাম্মদ আদনান (সর্বাধিক প্রাধান্য)
+    # ২. আবু ত্বহা মোহাম্মদ আদনান
     {
         "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
         "title": "আবু ত্বহা মোহাম্মদ আদনান: টেনশন করো না, নিশ্চয়ই আল্লাহ সাথে আছেন",
@@ -98,79 +98,61 @@ CURATED_YOUTUBE_SHORTS = [
     },
     {
         "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
-        "title": "আবু ত্বহা মোহাম্মদ আদনান: আখিরাতের প্রস্তুতি ও শেষ জামানায় ঈমান রক্ষা",
-        "url": "https://www.youtube.com/shorts/_ZT4fMcU17g",
-        "src_id": "yt__ZT4fMcU17g",
-        "nasihat": "সকাল ও সন্ধ্যার মাসনুন দোয়া এবং সূরা আল-কাহাফ নিয়মিত তিলাওয়াত করুন।",
-        "hashtags": "#AbuTohaAdnan #SheshJamana #Eman #IslamicReels"
+        "title": "আবু ত্বহা মোহাম্মদ আদনান: অন্তরের অন্তস্থল থেকে রবের কাছে চান",
+        "url": "https://www.youtube.com/shorts/3i_n006zR5c",
+        "src_id": "yt_3i_n006zR5c",
+        "nasihat": "মানুষের কাছে হাত না পেতে রবের কাছে চান, তিনি কখনোই বান্দাকে খালি হাতে ফেরান না।",
+        "hashtags": "#AbuTohaAdnan #Dua #Faith #Sunnah"
     },
     {
         "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
-        "title": "আবু ত্বহা মোহাম্মদ আদনান: অন্তরের ভয় দূর করার উপায় ও তাওযাক্কুল",
-        "url": "https://www.youtube.com/shorts/FMwP2Nq78Jg",
-        "src_id": "yt_FMwP2Nq78Jg",
-        "nasihat": "বান্দা যখন আল্লাহর ওপর তাওয়াক্কুল করে, আল্লাহ তার জন্য যথেষ্ট হয়ে যান।",
-        "hashtags": "#AbuTohaAdnan #Tawakkul #Eman #IslamicReminder"
+        "title": "আবু ত্বহা মোহাম্মদ আদনান: শেষ জামানার ঈমান রক্ষার পথ",
+        "url": "https://www.youtube.com/shorts/Xo_M1YgHn6s",
+        "src_id": "yt_Xo_M1YgHn6s",
+        "nasihat": "ফিতনার যুগে নিজের ঈমান ও আমলকে মজবুত রাখুন, কুরআনের ছায়াতলে ফিরে আসুন।",
+        "hashtags": "#AbuTohaAdnan #Eman #IslamicReminder #Ummah"
     },
 
-    # ৩. আল্লামা দেলাওয়ার হোসাইন সাঈদী (সর্বাধিক প্রাধান্য)
+    # ৩. আল্লামা দেলাওয়ার হোসাইন সাঈদী
     {
         "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
-        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কোরআনের আলো ও হেদায়েতের ডাক",
-        "url": "https://www.youtube.com/shorts/QV8QDT5S4Qg",
-        "src_id": "yt_QV8QDT5S4Qg",
-        "nasihat": "কোরআনের ছায়াতলে ফিরে আসুন, সেখানেই রয়েছে দুনিয়া ও আখিরাতের চূড়ান্ত মুক্তি।",
-        "hashtags": "#DelowarHossainSayedi #AllamaSayedi #SayediWaz #QuranerDawat"
+        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কুরআনের বাণীই মানুষের মুক্তির একমাত্র পথ",
+        "url": "https://www.youtube.com/shorts/Zp0-7uE2R5U",
+        "src_id": "yt_Zp0-7uE2R5U",
+        "nasihat": "কুরআন কেবল পড়ার কিতাব নয়, কুরআন মানবজাতির জীবন পরিচালনার পরিপূর্ণ বিধান।",
+        "hashtags": "#AllamaSayedi #SayediWaz #QuranerDawat #HeartTouchingWaz"
     },
     {
         "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
-        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কালজয়ী আবেগঘন শ্রেষ্ঠ নসিহত ও তওবার আহ্বান",
-        "url": "https://www.youtube.com/shorts/u92CrHYHka4",
-        "src_id": "yt_u92CrHYHka4",
-        "nasihat": "নিশ্চয়ই মহান আল্লাহ তওবাকারীদের অত্যন্ত ভালোবাসেন। বিলম্ব না করে ফিরে আসুন।",
-        "hashtags": "#AllamaSayedi #SayediShorts #HeartTouching #Tawbah"
+        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: মোমেনের আসল পরিচয় ও আল্লাহর ভয়",
+        "url": "https://www.youtube.com/shorts/r7_yN_6gMps",
+        "src_id": "yt_r7_yN_6gMps",
+        "nasihat": "যার অন্তরে আল্লাহর ভয় আছে, সে কখনো কোনো পাপ কাজে লিপ্ত হতে পারে না।",
+        "hashtags": "#AllamaSayedi #SayediBayan #Taqwa #Eman"
     },
 
-    # ৪. শায়খ আহমাদুল্লাহ (ভাইরাল বক্তা)
+    # ৪. শায়খ আহমাদুল্লাহ
     {
         "scholar": "শায়খ আহমাদুল্লাহ",
-        "title": "শায়খ আহমাদুল্লাহ: প্রতিদিন করার মত ছোট ছোট কিছু আমল ও ফজিলত",
-        "url": "https://www.youtube.com/shorts/454Qn82o4FY",
-        "src_id": "yt_454Qn82o4FY",
-        "nasihat": "দৈনন্দিন ছোট ছোট নেক আমলই আখিরাতে আপনার মিজান ভারী করে দিবে। নিয়মিত আমল করুন।",
-        "hashtags": "#ShaykhAhmadullah #AhmadullahWaz #IslamicReminder #Sunnah #DailyAmol"
+        "title": "শায়খ আহমাদুল্লাহ: অন্তরের সংকীর্ণতা দূর করার উপায় ও প্রশান্তি",
+        "url": "https://www.youtube.com/shorts/Jk_8_4sXw6U",
+        "src_id": "yt_Jk_8_4sXw6U",
+        "nasihat": "মানুষের ওপর রাগ ও ক্ষোভ পুষে রাখবেন না। ক্ষমা করে দিন, আল্লাহ আপনাকে ক্ষমা করবেন।",
+        "hashtags": "#ShaykhAhmadullah #AhmadullahWaz #HeartPeace #LifeHacks"
     },
 
-    # ৫. মুফতি আমির হামজা (ভাইরাল বক্তা)
-    {
-        "scholar": "মুফতি আমির হামজা",
-        "title": "মুফতি আমির হামজা: জীবনের শ্রেষ্ঠ বাস্তবতা ও পারিবারিক সৌহার্দ্য",
-        "url": "https://www.youtube.com/shorts/bs5QoImTpA4",
-        "src_id": "yt_bs5QoImTpA4",
-        "nasihat": "পরিবারের প্রতি সদয় হোন এবং রাসুলুল্লাহ (সা.)-এর সুন্নাহ মোতাবেক জীবন পরিচালনা করুন।",
-        "hashtags": "#AmirHamza #AmirHamzaWaz #BanglaWaz #Sunnah"
-    },
-
-    # ৬. মাওলানা তারেক জামিল (ভাইরাল বক্তা)
+    # ৫. মাওলানা তারেক জামিল
     {
         "scholar": "মাওলানা তারেক জামিল",
-        "title": "মাওলানা তারেক জামিল: অন্তরের নীরব কান্না ও মহান রবের ক্ষমা",
-        "url": "https://www.youtube.com/shorts/Pjl_pOe18vA",
-        "src_id": "yt_Pjl_pOe18vA",
-        "nasihat": "মহান আল্লাহ তার বান্দার প্রতিটি অশ্রুবিন্দু দেখেন। একান্তে আল্লাহর কাছে ক্ষমা চান।",
-        "hashtags": "#MaulanaTariqJamil #TariqJamilBangla #HeartTouchingWaz #Peace"
-    },
-    {
-        "scholar": "মাওলানা তারেক জামিল",
-        "title": "মাওলানা তারেক জামিল: দুনিয়ার ক্ষণস্থায়িত্ব ও আখিরাতের অনন্ত জীবন",
-        "url": "https://www.youtube.com/shorts/_PK-8d2tSQ0",
-        "src_id": "yt__PK-8d2tSQ0",
-        "nasihat": "দুনিয়া হচ্ছে মুসাফিরের মতো ছায়ার জায়গা, আসল গন্তব্য আখিরাত। আখেরাতমুখী হোন।",
-        "hashtags": "#TariqJamil #TariqJamilEmotional #IslamicReminder"
+        "title": "মাওলানা তারেক জামিল: অন্তরের প্রশান্তি ও আল্লাহর অসীম রহমত",
+        "url": "https://www.youtube.com/shorts/B8m_Lp7wY6o",
+        "src_id": "yt_B8m_Lp7wY6o",
+        "nasihat": "আল্লাহ কাউকে শাস্তি দিতে চান না, তিনি চান বান্দা তওবা করে ফিরে আসুক।",
+        "hashtags": "#MaulanaTariqJamil #TariqJamilBangla #Tawbah #AllahMercy"
     }
 ]
 
-# ডায়নামিক সার্চ কুয়েরি (আজহারী, আবু ত্বহা ও সাঈদী সর্বাধিক প্রাধান্য রোটেশন)
+# ডায়নামিক সার্চ কুয়েরি
 DYNAMIC_SCHOLAR_QUERIES = [
     ("মাওলানা মিজানুর রহমান আজহারী", "মিজানুর রহমান আজহারী shorts #shorts", "#MizanurRahmanAzhari #AzhariWaz"),
     ("আবু ত্বহা মোহাম্মদ আদনান", "আবু ত্বহা আদনান shorts #shorts", "#AbuTohaAdnan #AbuTohaWaz"),
@@ -199,7 +181,6 @@ def get_posted_signatures_from_facebook(page_id: str, access_token: str, limit: 
                 m = re.findall(r"\[src:([a-zA-Z0-9_-]+)\]", text)
                 for src in m:
                     signatures.add(src)
-                # শিরোনামের কীওয়ার্ড চেক
                 for banned in PERMANENT_BANNED_SIGNATURES:
                     if banned.lower() in text:
                         signatures.add(banned)
@@ -225,6 +206,7 @@ def save_local_history(history: dict):
         logging.warning(f"Failed to save local history: {e}")
 
 def download_youtube_short(item: dict) -> str:
+    """Downloads YouTube Short using android_embedded client to bypass bot checks."""
     src_id = item["src_id"]
     output_path = os.path.join(DOWNLOAD_DIR, f"{src_id}.mp4")
 
@@ -234,11 +216,12 @@ def download_youtube_short(item: dict) -> str:
     logging.info(f"Downloading authentic YouTube Short: {item['title']} ({item['url']})")
     cmd = [
         "yt-dlp",
-        "--extractor-args", "youtube:player_client=android",
-        "-f", "best/b/18",
+        "--extractor-args", "youtube:player_client=android_embedded,web_embedded",
+        "--merge-output-format", "mp4",
+        "-f", "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
         "-o", output_path,
         "--no-playlist",
-        "--socket-timeout", "30",
+        "--socket-timeout", "35",
         "--retries", "3",
         item["url"]
     ]
@@ -254,39 +237,33 @@ def search_dynamic_youtube_short(scholar_name: str, query: str, default_hashtags
     logging.info(f"Searching fresh trending YouTube Shorts for scholar: {scholar_name} ({query})")
     cmd = [
         "yt-dlp",
-        "--extractor-args", "youtube:player_client=android",
+        "--extractor-args", "youtube:player_client=android_embedded,web_embedded",
         "--flat-playlist",
         "--match-filter", "duration <= 90",
         "--print", "%(id)s|||%(title)s|||%(duration)s",
         f"ytsearch10:{query}"
     ]
-    res = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
-    if res.returncode != 0:
-        return None
-
-    for line in res.stdout.strip().splitlines():
-        parts = line.split("|||")
-        if len(parts) >= 2:
+    try:
+        res = subprocess.run(cmd, capture_output=True, text=True, timeout=40)
+        lines = [l.strip() for l in res.stdout.strip().split("\n") if l.strip() and "|||" in l]
+        for line in lines:
+            parts = line.split("|||")
             vid_id = parts[0].strip()
-            title = parts[1].strip()
+            title = parts[1].strip() if len(parts) > 1 else query
             src_id = f"yt_{vid_id}"
 
-            if src_id in posted_signatures or vid_id in posted_signatures:
-                continue
-            is_banned = False
-            for b in PERMANENT_BANNED_SIGNATURES:
-                if b.lower() in title.lower() or b == src_id:
-                    is_banned = True
-                    break
-            if is_banned:
+            if src_id in posted_signatures or any(b in title.lower() for b in PERMANENT_BANNED_SIGNATURES):
                 continue
 
             return {
                 "scholar": scholar_name,
-                "title": f"{scholar_name}: {title}",
+                "title": f"{scholar_name}: {title[:70]}",
                 "url": f"https://www.youtube.com/shorts/{vid_id}",
                 "src_id": src_id,
-                "nasihat": "দ্বীনের সহিহ বার্তা জানুন এবং জীবনঘনিষ্ঠ আমলের মাধ্যমে পরকালকে সুন্দর করুন।",
-                "hashtags": f"{default_hashtags} #IslamicShorts #BanglaWaz #Sunnah #Eman"
+                "nasihat": "আল্লাহর আনুগত্য ও রাসুলুল্লাহ (সাঃ)-এর সুন্নাহ অনুসরণের মাধ্যমেই অন্তরের প্রকৃত শান্তি ও মুক্তি মেলে।",
+                "hashtags": f"{default_hashtags} #Shorts #WazReels"
             }
+    except Exception as e:
+        logging.warning(f"Dynamic search error for {scholar_name}: {e}")
+
     return None
