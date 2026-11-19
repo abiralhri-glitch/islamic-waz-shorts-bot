@@ -172,16 +172,18 @@ BANK_METADATA = [
 
 def apply_anti_copyright_and_watermark(input_video_path: str, output_path: str):
     """
-    ভিডিওতে ওয়াটারমার্ক ও হালকা অ্যান্টি-কপিরাইট ফিল্টারিং প্রয়োগ (ন্যাচারাল সাউন্ড নিশ্চিত রেখে)
+    ফুল ভিডিও ক্লিয়ার ও সম্পূর্ণ দৃশ্যমান রাখার জন্য ১০৮০p ডুয়াল-লেয়ার স্মার্ট ফ্রেইমিং:
+    - নো ক্রপিং: হুজুরের মুখ, হাত, অঙ্গভঙ্গি ও সাবটাইটেল ১০০% সম্পূর্ণ দৃশ্যমান থাকবে
+    - ব্যাকগ্রাউন্ডে মসৃণ সিনেমাটিক ব্লার এবং মাঝখানে ফুল অরজিনাল ফ্রেম
+    - ক্রিস্টাল ক্লিয়ার ১০৮০x১৯২০ আল্ট্রা-এইচডি কোয়ালিটি (CRF 18, 6000k Bitrate)
+    - ১০০% স্বাভাবিক ন্যাচারাল ক্রিস্টাল ক্লিয়ার লাউডনরম অডিও সাউন্ড
     """
-    speed_factor = random.choice([1.015, 1.02])
-    speed_v = f"setpts={1/speed_factor}*PTS"
-    speed_a = f"atempo={speed_factor}"
-
     filter_complex = (
-        f"[0:v]scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280,{speed_v}[v_scaled];"
-        f"[v_scaled][1:v]overlay=0:0[v_final];"
-        f"[0:a]{speed_a},volume=1.15[a_final]"
+        "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=25:5,setsar=1[bg];"
+        "[0:v]scale=1080:1920:force_original_aspect_ratio=decrease,setsar=1[fg];"
+        "[bg][fg]overlay=(W-w)/2:(H-h)/2[v_base];"
+        "[v_base][1:v]overlay=0:0[v_final];"
+        "[0:a]volume=1.1,loudnorm=I=-16:TP=-1.5:LRA=11[a_final]"
     )
 
     cmd = [
@@ -191,8 +193,9 @@ def apply_anti_copyright_and_watermark(input_video_path: str, output_path: str):
         "-filter_complex", filter_complex,
         "-map", "[v_final]",
         "-map", "[a_final]",
-        "-c:v", "libx264", "-preset", "fast", "-crf", "20",
-        "-c:a", "aac", "-b:a", "192k",
+        "-c:v", "libx264", "-preset", "fast", "-crf", "18",
+        "-b:v", "6000k", "-maxrate", "8000k", "-bufsize", "12000k",
+        "-c:a", "aac", "-b:a", "320k", "-ar", "48000",
         "-map_metadata", "-1",
         output_path
     ]
