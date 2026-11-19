@@ -38,18 +38,9 @@ PERMANENT_BANNED_SIGNATURES = {
 DOWNLOAD_DIR = os.path.join(BASE_DIR, "downloads")
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
-# সকল শীর্ষ সম্মানিত হুজুরদের ভেরিফাইড ট্রেন্ডিং ইউটিউব শর্টস কালেকশন
+# সকল শীর্ষ সম্মানিত হুজুরদের ভেরিফাইড ট্রেন্ডিং ইউটিউব শর্টস কালেকশন (আজহারী, আবু ত্বহা ও সাঈদী অগ্রাধিকার)
 CURATED_YOUTUBE_SHORTS = [
-    # ১. শায়খ আহমাদুল্লাহ
-    {
-        "scholar": "শায়খ আহমাদুল্লাহ",
-        "title": "শায়খ আহমাদুল্লাহ: প্রতিদিন করার মত ছোট ছোট কিছু আমল ও ফজিলত",
-        "url": "https://www.youtube.com/shorts/454Qn82o4FY",
-        "src_id": "yt_454Qn82o4FY",
-        "nasihat": "দৈনন্দিন ছোট ছোট নেক আমলই আখিরাতে আপনার মিজান ভারী করে দিবে। নিয়মিত আমল করুন।",
-        "hashtags": "#ShaykhAhmadullah #AhmadullahWaz #IslamicReminder #Sunnah #DailyAmol"
-    },
-    # ২. মাওলানা মিজানুর রহমান আজহারী
+    # ১. মাওলানা মিজানুর রহমান আজহারী (সর্বাধিক প্রাধান্য)
     {
         "scholar": "মাওলানা মিজানুর রহমান আজহারী",
         "title": "মাওলানা মিজানুর রহমান আজহারী: জীবনের শ্রেষ্ঠ নসিহত ও সময়ের মূল্যায়ন",
@@ -74,7 +65,24 @@ CURATED_YOUTUBE_SHORTS = [
         "nasihat": "পাপ যত বড়ই হোক, আল্লাহর রহমত তার চেয়েও অনেক বড়। খাঁটি অন্তরে তওবা করুন।",
         "hashtags": "#Tawbah #AllahMercy #AzhariBayan #Sunnah"
     },
-    # ৩. আবু ত্বহা মোহাম্মদ আদনান
+    {
+        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
+        "title": "মাওলানা মিজানুর রহমান আজহারী: মানুষ চলে যায় কিন্তু নেক আমল রয়ে যায়",
+        "url": "https://www.youtube.com/shorts/6r9r87KxPPM",
+        "src_id": "yt_6r9r87KxPPM",
+        "nasihat": "এমন কিছু নেক আমল রেখে যান যা কবরে আপনার আলোর কারণ হবে।",
+        "hashtags": "#MizanurRahmanAzhari #AzhariShorts #IslamicBayan #HeartTouching"
+    },
+    {
+        "scholar": "মাওলানা মিজানুর রহমান আজহারী",
+        "title": "মাওলানা মিজানুর রহমান আজহারী: হতাশ হবেন না, মহান রব আপনার সাথে আছেন",
+        "url": "https://www.youtube.com/shorts/RYR9LJ-noiU",
+        "src_id": "yt_RYR9LJ-noiU",
+        "nasihat": "সব দরজা বন্ধ হয়ে গেলেও রবের রহমতের দরজা সর্বদা উন্মুক্ত। আল্লাহর ওপর ভরসা রাখুন।",
+        "hashtags": "#MizanurRahmanAzhari #MotivationalWaz #Tawakkul #Peace"
+    },
+
+    # ২. আবু ত্বহা মোহাম্মদ আদনান (সর্বাধিক প্রাধান্য)
     {
         "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
         "title": "আবু ত্বহা মোহাম্মদ আদনান: টেনশন করো না, নিশ্চয়ই আল্লাহ সাথে আছেন",
@@ -91,7 +99,44 @@ CURATED_YOUTUBE_SHORTS = [
         "nasihat": "সকাল ও সন্ধ্যার মাসনুন দোয়া এবং সূরা আল-কাহাফ নিয়মিত তিলাওয়াত করুন।",
         "hashtags": "#AbuTohaAdnan #SheshJamana #Eman #IslamicReels"
     },
-    # ৪. মুফতি আমির হামজা
+    {
+        "scholar": "আবু ত্বহা মোহাম্মদ আদনান",
+        "title": "আবু ত্বহা মোহাম্মদ আদনান: অন্তরের ভয় দূর করার উপায় ও তাওযাক্কুল",
+        "url": "https://www.youtube.com/shorts/FMwP2Nq78Jg",
+        "src_id": "yt_FMwP2Nq78Jg",
+        "nasihat": "বান্দা যখন আল্লাহর ওপর তাওয়াক্কুল করে, আল্লাহ তার জন্য যথেষ্ট হয়ে যান।",
+        "hashtags": "#AbuTohaAdnan #Tawakkul #Eman #IslamicReminder"
+    },
+
+    # ৩. আল্লামা দেলাওয়ার হোসাইন সাঈদী (সর্বাধিক প্রাধান্য)
+    {
+        "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
+        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কোরআনের আলো ও হেদায়েতের ডাক",
+        "url": "https://www.youtube.com/shorts/QV8QDT5S4Qg",
+        "src_id": "yt_QV8QDT5S4Qg",
+        "nasihat": "কোরআনের ছায়াতলে ফিরে আসুন, সেখানেই রয়েছে দুনিয়া ও আখিরাতের চূড়ান্ত মুক্তি।",
+        "hashtags": "#DelowarHossainSayedi #AllamaSayedi #SayediWaz #QuranerDawat"
+    },
+    {
+        "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
+        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কালজয়ী আবেগঘন শ্রেষ্ঠ নসিহত ও তওবার আহ্বান",
+        "url": "https://www.youtube.com/shorts/u92CrHYHka4",
+        "src_id": "yt_u92CrHYHka4",
+        "nasihat": "নিশ্চয়ই মহান আল্লাহ তওবাকারীদের অত্যন্ত ভালোবাসেন। বিলম্ব না করে ফিরে আসুন।",
+        "hashtags": "#AllamaSayedi #SayediShorts #HeartTouching #Tawbah"
+    },
+
+    # ৪. শায়খ আহমাদুল্লাহ (ভাইরাল বক্তা)
+    {
+        "scholar": "শায়খ আহমাদুল্লাহ",
+        "title": "শায়খ আহমাদুল্লাহ: প্রতিদিন করার মত ছোট ছোট কিছু আমল ও ফজিলত",
+        "url": "https://www.youtube.com/shorts/454Qn82o4FY",
+        "src_id": "yt_454Qn82o4FY",
+        "nasihat": "দৈনন্দিন ছোট ছোট নেক আমলই আখিরাতে আপনার মিজান ভারী করে দিবে। নিয়মিত আমল করুন।",
+        "hashtags": "#ShaykhAhmadullah #AhmadullahWaz #IslamicReminder #Sunnah #DailyAmol"
+    },
+
+    # ৫. মুফতি আমির হামজা (ভাইরাল বক্তা)
     {
         "scholar": "মুফতি আমির হামজা",
         "title": "মুফতি আমির হামজা: জীবনের শ্রেষ্ঠ বাস্তবতা ও পারিবারিক সৌহার্দ্য",
@@ -100,7 +145,8 @@ CURATED_YOUTUBE_SHORTS = [
         "nasihat": "পরিবারের প্রতি সদয় হোন এবং রাসুলুল্লাহ (সা.)-এর সুন্নাহ মোতাবেক জীবন পরিচালনা করুন।",
         "hashtags": "#AmirHamza #AmirHamzaWaz #BanglaWaz #Sunnah"
     },
-    # ৫. মাওলানা তারেক জামিল
+
+    # ৬. মাওলানা তারেক জামিল (ভাইরাল বক্তা)
     {
         "scholar": "মাওলানা তারেক জামিল",
         "title": "মাওলানা তারেক জামিল: অন্তরের নীরব কান্না ও মহান রবের ক্ষমা",
@@ -116,63 +162,21 @@ CURATED_YOUTUBE_SHORTS = [
         "src_id": "yt__PK-8d2tSQ0",
         "nasihat": "দুনিয়া হচ্ছে মুসাফিরের মতো ছায়ার জায়গা, আসল গন্তব্য আখিরাত। আখেরাতমুখী হোন।",
         "hashtags": "#TariqJamil #TariqJamilEmotional #IslamicReminder"
-    },
-    # ৬. ড. খোন্দকার আব্দুল্লাহ জাহাঙ্গীর
-    {
-        "scholar": "ড. খোন্দকার আব্দুল্লাহ জাহাঙ্গীর",
-        "title": "ড. খোন্দকার আব্দুল্লাহ জাহাঙ্গীর: যেকোনো রোগ ও কষ্ট থেকে মুক্তির মাসনুন দোয়া",
-        "url": "https://www.youtube.com/shorts/CUby7mEFGPU",
-        "src_id": "yt_CUby7mEFGPU",
-        "nasihat": "কষ্ট ও অসুস্থতায় সুন্নাহসম্মত দোয়া পাঠ করুন এবং আল্লাহর রহমতের ওপর ভরসা রাখুন।",
-        "hashtags": "#DrAbdullahJahangir #MasnunDua #Sunnah #IslamicGuidance"
-    },
-    {
-        "scholar": "ড. খোন্দকার আব্দুল্লাহ জাহাঙ্গীর",
-        "title": "ড. খোন্দকার আব্দুল্লাহ জাহাঙ্গীর: সালাত শেষে সালাম ফেরানোর প্রকৃত তাৎপর্য",
-        "url": "https://www.youtube.com/shorts/dj_N98QcEPc",
-        "src_id": "yt_dj_N98QcEPc",
-        "nasihat": "সালাতের প্রতিটি রুকনের সঠিক অর্থ বুঝে নামাজ আদায় করলে খুশু-খুজু বৃদ্ধি পায়।",
-        "hashtags": "#Salat #DrAbdullahJahangir #Namaz #Sunnah"
-    },
-    # ৭. হাফিজুর রহমান সিদ্দিকী
-    {
-        "scholar": "হাফিজুর রহমান সিদ্দিকী",
-        "title": "হাফিজুর রহমান সিদ্দিকী: ঈমান রক্ষা ও আল্লাহর সন্তুষ্টি অর্জনের নসিহত",
-        "url": "https://www.youtube.com/shorts/DWMY8t04btQ",
-        "src_id": "yt_DWMY8t04btQ",
-        "nasihat": "ঈমানি মূল্যবোধে অটল থাকুন এবং দ্বীনের সঠিক বুঝ অনুযায়ী আমল করুন।",
-        "hashtags": "#HafizurRahmanSiddiki #KuakataWaz #BanglaWaz #Eman"
-    },
-    # ৮. আল্লামা দেলাওয়ার হোসাইন সাঈদী
-    {
-        "scholar": "আল্লামা দেলাওয়ার হোসাইন সাঈদী",
-        "title": "আল্লামা দেলাওয়ার হোসাইন সাঈদী: কোরআনের আলো ও হেদায়েতের ডাক",
-        "url": "https://www.youtube.com/shorts/QV8QDT5S4Qg",
-        "src_id": "yt_QV8QDT5S4Qg",
-        "nasihat": "কোরআনের ছায়াতলে ফিরে আসুন, সেখানেই রয়েছে দুনিয়া ও আখিরাতের চূড়ান্ত মুক্তি।",
-        "hashtags": "#DelowarHossainSayedi #AllamaSayedi #SayediWaz #QuranerDawat"
-    },
-    # ৯. মুফতি জামশেদ মজুমদার
-    {
-        "scholar": "মুফতি জামশেদ মজুমদার",
-        "title": "মুফতি জামশেদ মজুমদার: অন্তরের অহংকার ও হিংসা দূর করার উপায়",
-        "url": "https://www.youtube.com/shorts/wVwJqP1vD7c",
-        "src_id": "yt_wVwJqP1vD7c",
-        "nasihat": "অহংকার মানুষের সমস্ত নেক আমল জ্বালিয়ে পুড়িয়ে ছারখার করে দেয়। সর্বদা বিনয়ী হোন।",
-        "hashtags": "#MuftiJamshed #BanglaWaz #IslamicReminder #Sunnah"
     }
 ]
 
-# ডায়নামিক সার্চ কুয়েরি (সকল শীর্ষ হুজুরদের জন্য)
+# ডায়নামিক সার্চ কুয়েরি (আজহারী, আবু ত্বহা ও সাঈদী সর্বাধিক প্রাধান্য রোটেশন)
 DYNAMIC_SCHOLAR_QUERIES = [
-    ("শায়খ আহমাদুল্লাহ", "শায়খ আহমাদুল্লাহ shorts #shorts", "#ShaykhAhmadullah #AhmadullahWaz"),
     ("মাওলানা মিজানুর রহমান আজহারী", "মিজানুর রহমান আজহারী shorts #shorts", "#MizanurRahmanAzhari #AzhariWaz"),
     ("আবু ত্বহা মোহাম্মদ আদনান", "আবু ত্বহা আদনান shorts #shorts", "#AbuTohaAdnan #AbuTohaWaz"),
-    ("মুফতি আমির হামজা", "আমির হামজা shorts #shorts", "#AmirHamzaWaz #AmirHamzaShorts"),
-    ("মাওলানা তারেক জামিল", "মাওলানা তারেক জামিল বাংলা shorts #shorts", "#MaulanaTariqJamil #TariqJamilBangla"),
     ("আল্লামা দেলাওয়ার হোসাইন সাঈদী", "আল্লামা সাঈদী shorts #shorts", "#AllamaSayedi #SayediWaz"),
-    ("হাফিজুর রহমান সিদ্দিকী", "হাফিজুর রহমান সিদ্দিকী shorts #shorts", "#HafizurRahmanSiddiki #BanglaWaz"),
-    ("ড. খোন্দকার আব্দুল্লাহ জাহাঙ্গীর", "খোন্দকার আব্দুল্লাহ জাহাঙ্গীর shorts #shorts", "#AbdullahJahangir #Sunnah")
+    ("শায়খ আহমাদুল্লাহ", "শায়খ আহমাদুল্লাহ shorts #shorts", "#ShaykhAhmadullah #AhmadullahWaz"),
+    ("মাওলানা মিজানুর রহমান আজহারী", "আজহারী মোটিভেশনাল shorts #shorts", "#MizanurRahmanAzhari #AzhariShorts"),
+    ("মুফতি আমির হামজা", "আমির হামজা shorts #shorts", "#AmirHamzaWaz #AmirHamzaShorts"),
+    ("আবু ত্বহা মোহাম্মদ আদনান", "আবু ত্বহা মোহাম্মদ আদনান shorts #shorts", "#AbuTohaAdnan #Eman"),
+    ("আল্লামা দেলাওয়ার হোসাইন সাঈদী", "দেলাওয়ার হোসাইন সাঈদী ওয়াজ shorts #shorts", "#AllamaSayedi #SayediShorts"),
+    ("মাওলানা তারেক জামিল", "মাওলানা তারেক জামিল বাংলা shorts #shorts", "#MaulanaTariqJamil #TariqJamilBangla"),
+    ("মাওলানা মিজানুর রহমান আজহারী", "mizanur rahman azhari waz shorts", "#MizanurRahmanAzhari #ViralWaz")
 ]
 
 def get_posted_signatures_from_facebook(page_id: str, access_token: str, limit: int = 100) -> set:
