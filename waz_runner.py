@@ -49,6 +49,14 @@ PERMANENT_BANNED_SIGNATURES = {
 # অফলাইন ব্যাকআপ ব্যাংক ক্লিপস (যদি ইউটিউব ডাউনলোডে সাময়িক ইস্যু হয়)
 BANK_METADATA = [
     {
+        "file": "ahmadullah_amol_nasihat.mp4",
+        "src_id": "bank_ahmadullah_amol_nasihat",
+        "scholar": "শায়খ আহমাদুল্লাহ",
+        "title": "শায়খ আহমাদুল্লাহ: প্রতিদিন করার মত ছোট ছোট কিছু আমল ও ফজিলত",
+        "nasihat": "দৈনন্দিন ছোট ছোট নেক আমলই আখিরাতে আপনার মিজান ভারী করে দিবে। নিয়মিত আমল করুন।",
+        "hashtags": "#ShaykhAhmadullah #AhmadullahWaz #IslamicReminder #Sunnah #DailyAmol"
+    },
+    {
         "file": "azhari_jiber_mulya.mp4",
         "src_id": "bank_azhari_jiber_mulya",
         "scholar": "মাওলানা মিজানুর রহমান আজহারী",
