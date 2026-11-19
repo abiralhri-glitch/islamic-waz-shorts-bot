@@ -223,15 +223,14 @@ def download_youtube_short(item: dict) -> str:
     src_id = item["src_id"]
     output_path = os.path.join(DOWNLOAD_DIR, f"{src_id}.mp4")
 
-    if os.path.exists(output_path) and os.path.getsize(output_path) > 100000:
+    if os.path.exists(output_path) and os.path.getsize(output_path) > 50000:
         return output_path
 
     logging.info(f"Downloading authentic YouTube Short: {item['title']} ({item['url']})")
     cmd = [
         "yt-dlp",
-        "--extractor-args", "youtube:player_client=ios,android",
-        "-f", "bestvideo[height<=1920][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
-        "--merge-output-format", "mp4",
+        "--extractor-args", "youtube:player_client=android",
+        "-f", "best/b/18",
         "-o", output_path,
         "--no-playlist",
         "--socket-timeout", "30",
@@ -239,7 +238,7 @@ def download_youtube_short(item: dict) -> str:
         item["url"]
     ]
     res = subprocess.run(cmd, capture_output=True, text=True)
-    if res.returncode == 0 and os.path.exists(output_path) and os.path.getsize(output_path) > 100000:
+    if res.returncode == 0 and os.path.exists(output_path) and os.path.getsize(output_path) > 50000:
         logging.info(f"Successfully downloaded YouTube Short: {output_path} ({os.path.getsize(output_path)/(1024*1024):.2f} MB)")
         return output_path
     else:
@@ -250,7 +249,7 @@ def search_dynamic_youtube_short(scholar_name: str, query: str, default_hashtags
     logging.info(f"Searching fresh trending YouTube Shorts for scholar: {scholar_name} ({query})")
     cmd = [
         "yt-dlp",
-        "--extractor-args", "youtube:player_client=ios,android",
+        "--extractor-args", "youtube:player_client=android",
         "--flat-playlist",
         "--match-filter", "duration <= 90",
         "--print", "%(id)s|||%(title)s|||%(duration)s",
