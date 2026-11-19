@@ -32,7 +32,12 @@ PERMANENT_BANNED_SIGNATURES = {
     "yt_y31MzRdIDPo",
     "জীনরা খাবার কোথায় পায়",
     "দোয়ার ফজিলত ও রবকে ডাকার গোপন রহস্য",
-    "উত্তম চরিত্র ও সুন্দর পারিবারিক জীবনের শিক্ষা"
+    "উত্তম চরিত্র ও সুন্দর পারিবারিক জীবনের শিক্ষা",
+    "bank_amir_hamza_pother_alo",
+    "amir_hamza_pother_alo.mp4",
+    "4356847881114890",
+    "bank_azhari_dile_shanti",
+    "bank_abutoha_rizik_borot"
 }
 
 DOWNLOAD_DIR = os.path.join(BASE_DIR, "downloads")
