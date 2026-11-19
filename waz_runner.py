@@ -262,10 +262,8 @@ def run():
     )
     print(f"[5/5] 📤 ফেসবুকে রিলস আপলোড হচ্ছে (Page ID: {page_id})...")
     pub_res = publish_reels_video(
-        page_id=page_id,
-        access_token=token,
         video_path=processed_output,
-        description=caption,
+        caption=caption,
         title=selected_item["title"]
     )
     print(f"🚀 ফেসবুক আপলোড সম্পন্ন! রেজাল্ট: {pub_res}")
