@@ -4,7 +4,7 @@ Islamic Waz Short Reels Downloader & Multi-Source Engine
 - সকল শীর্ষস্থানীয় সম্মানিত ইসলামিক স্কলারগণের অন্তর্ভুক্তিকরণ (আহমাদুল্লাহ, আজহারী, আবু ত্বহা, সাঈদী, আমির হামজা, তারেক জামিল)
 - কঠোর জিরো-ডুপ্লিকেট পলিসি: ফেসবুক পেজের পূর্ববর্তী ১০০টি ভিডিওর মেটাডাটা ও হিস্টোরি যাচাই
 - ১০০% স্বাভাবিক কণ্ঠস্বর: কোনো কার্টুন পিচ-শিফটিং বা ভয়েস স্পিড ডিস্টরশন নয়
-- Resilient Android-Embedded Client to bypass YouTube bot detection on cloud runners
+- Resilient iOS & Android Mobile Clients to bypass YouTube bot detection on cloud runners
 """
 
 import os
@@ -206,7 +206,7 @@ def save_local_history(history: dict):
         logging.warning(f"Failed to save local history: {e}")
 
 def download_youtube_short(item: dict) -> str:
-    """Downloads YouTube Short using android_embedded client to bypass bot checks."""
+    """Downloads YouTube Short using ios/android mobile client to bypass bot checks."""
     src_id = item["src_id"]
     output_path = os.path.join(DOWNLOAD_DIR, f"{src_id}.mp4")
 
@@ -214,56 +214,67 @@ def download_youtube_short(item: dict) -> str:
         return output_path
 
     logging.info(f"Downloading authentic YouTube Short: {item['title']} ({item['url']})")
-    cmd = [
-        "yt-dlp",
-        "--extractor-args", "youtube:player_client=android_embedded,web_embedded",
-        "--merge-output-format", "mp4",
-        "-f", "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
-        "-o", output_path,
-        "--no-playlist",
-        "--socket-timeout", "35",
-        "--retries", "3",
-        item["url"]
+    
+    # Try multiple resilient clients (ios bypasses bot detection on cloud runners)
+    clients_to_try = [
+        "ios",
+        "android",
+        "mweb,web"
     ]
-    res = subprocess.run(cmd, capture_output=True, text=True)
-    if res.returncode == 0 and os.path.exists(output_path) and os.path.getsize(output_path) > 50000:
-        logging.info(f"Successfully downloaded YouTube Short: {output_path} ({os.path.getsize(output_path)/(1024*1024):.2f} MB)")
-        return output_path
-    else:
-        logging.warning(f"yt-dlp failed for {item['url']}: {res.stderr[:300]}")
-        return None
+    
+    for client in clients_to_try:
+        cmd = [
+            "yt-dlp",
+            "--extractor-args", f"youtube:player_client={client}",
+            "--merge-output-format", "mp4",
+            "-f", "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
+            "-o", output_path,
+            "--no-playlist",
+            "--socket-timeout", "35",
+            "--retries", "2",
+            item["url"]
+        ]
+        res = subprocess.run(cmd, capture_output=True, text=True)
+        if res.returncode == 0 and os.path.exists(output_path) and os.path.getsize(output_path) > 50000:
+            logging.info(f"Successfully downloaded YouTube Short via {client}: {output_path} ({os.path.getsize(output_path)/(1024*1024):.2f} MB)")
+            return output_path
+        else:
+            logging.warning(f"yt-dlp ({client}) failed: {res.stderr[:200]}")
+
+    return None
 
 def search_dynamic_youtube_short(scholar_name: str, query: str, default_hashtags: str, posted_signatures: set) -> dict:
     logging.info(f"Searching fresh trending YouTube Shorts for scholar: {scholar_name} ({query})")
-    cmd = [
-        "yt-dlp",
-        "--extractor-args", "youtube:player_client=android_embedded,web_embedded",
-        "--flat-playlist",
-        "--match-filter", "duration <= 90",
-        "--print", "%(id)s|||%(title)s|||%(duration)s",
-        f"ytsearch10:{query}"
-    ]
-    try:
-        res = subprocess.run(cmd, capture_output=True, text=True, timeout=40)
-        lines = [l.strip() for l in res.stdout.strip().split("\n") if l.strip() and "|||" in l]
-        for line in lines:
-            parts = line.split("|||")
-            vid_id = parts[0].strip()
-            title = parts[1].strip() if len(parts) > 1 else query
-            src_id = f"yt_{vid_id}"
+    for client in ["ios", "android"]:
+        cmd = [
+            "yt-dlp",
+            "--extractor-args", f"youtube:player_client={client}",
+            "--flat-playlist",
+            "--match-filter", "duration <= 90",
+            "--print", "%(id)s|||%(title)s|||%(duration)s",
+            f"ytsearch10:{query}"
+        ]
+        try:
+            res = subprocess.run(cmd, capture_output=True, text=True, timeout=40)
+            lines = [l.strip() for l in res.stdout.strip().split("\n") if l.strip() and "|||" in l]
+            for line in lines:
+                parts = line.split("|||")
+                vid_id = parts[0].strip()
+                title = parts[1].strip() if len(parts) > 1 else query
+                src_id = f"yt_{vid_id}"
 
-            if src_id in posted_signatures or any(b in title.lower() for b in PERMANENT_BANNED_SIGNATURES):
-                continue
+                if src_id in posted_signatures or any(b in title.lower() for b in PERMANENT_BANNED_SIGNATURES):
+                    continue
 
-            return {
-                "scholar": scholar_name,
-                "title": f"{scholar_name}: {title[:70]}",
-                "url": f"https://www.youtube.com/shorts/{vid_id}",
-                "src_id": src_id,
-                "nasihat": "আল্লাহর আনুগত্য ও রাসুলুল্লাহ (সাঃ)-এর সুন্নাহ অনুসরণের মাধ্যমেই অন্তরের প্রকৃত শান্তি ও মুক্তি মেলে।",
-                "hashtags": f"{default_hashtags} #Shorts #WazReels"
-            }
-    except Exception as e:
-        logging.warning(f"Dynamic search error for {scholar_name}: {e}")
+                return {
+                    "scholar": scholar_name,
+                    "title": f"{scholar_name}: {title[:70]}",
+                    "url": f"https://www.youtube.com/shorts/{vid_id}",
+                    "src_id": src_id,
+                    "nasihat": "আল্লাহর আনুগত্য ও রাসুলুল্লাহ (সাঃ)-এর সুন্নাহ অনুসরণের মাধ্যমেই অন্তরের প্রকৃত শান্তি ও মুক্তি মেলে।",
+                    "hashtags": f"{default_hashtags} #Shorts #WazReels"
+                }
+        except Exception as e:
+            logging.warning(f"Dynamic search error ({client}) for {scholar_name}: {e}")
 
     return None
