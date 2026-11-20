@@ -1,11 +1,11 @@
-name: "Islamic Waz 10 Daily High-Definition Reels & Videos"
+name: "Jannat 4 Daily Islamic Waz Reels (Noon & Evening)"
 
 on:
   schedule:
-    # সকালের ২টি স্লট: বাংলাদেশ সময় সকাল ০৭:৩০ ও ০৯:৩০ (UTC 01:30 & 03:30)
-    - cron: '30 1,3 * * *'
-    # দুপুরের পর থেকে প্রতি ১ ঘণ্টা পর পর ৮টি স্লট: দুপুর ০১:০০ থেকে রাত ০৮:০০ পর্যন্ত (UTC 07:00 to 14:00)
-    - cron: '0 7-14 * * *'
+    # দুপুরে ২টি পোস্ট: বাংলাদেশ সময় দুপুর ১২:৪৫ ও ০২:১৫ (UTC 06:45 ও 08:15)
+    - cron: '45 6,8 * * *'
+    # সন্ধ্যায় ২টি পোস্ট: বাংলাদেশ সময় সন্ধ্যা ০৬:৪৫ ও রাত ০৮:৪৫ (UTC 12:45 ও 14:45)
+    - cron: '45 12,14 * * *'
   workflow_dispatch:
     inputs:
       manual_trigger:
@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   post-waz-reel:
-    name: Process & Publish Real-Scene Islamic Waz Reel
+    name: Process & Publish Real-Scene Islamic Waz Reel to Jannat
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -48,9 +48,11 @@ jobs:
         run: |
           git pull --rebase origin main || true
 
-      - name: Execute Islamic Waz Reel Engine & Publish
+      - name: Execute Islamic Waz Reel Engine & Publish to Jannat
         env:
           PYTHONUNBUFFERED: "1"
+          FB_PAGE_ID: "1251877234677514"
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
         run: |
           python waz_runner.py
 
