@@ -1,5 +1,5 @@
 """
-Facebook Reels Publisher for 'সেরা ইসলামিক শর্ট ওয়াজ'
+Facebook Reels Publisher for 'Jannat' Page (ID: 1251877234677514)
 Uses Meta Graph API Resumable Reels Protocol with Lifetime Permanent Page Access Token.
 """
 
@@ -66,6 +66,13 @@ def publish_reels_video(video_path: str, caption: str, title: str = None) -> dic
 
     if finish_data.get("success"):
         print(f"[SUCCESS] Reel {video_id} successfully published to Facebook!")
+        try:
+            cmt_url = f"{FB_GRAPH_URL}/{video_id}/comments"
+            cmt_msg = "মাশাআল্লাহ! দ্বীনি নসিহতটি ভালো লাগলে লাইক ও শেয়ার করে সদকায়ে জারিয়া হিসেবে বন্ধুদের মাঝে ছড়িয়ে দিন। আমিন লিখে দোয়া করুন 🤲"
+            requests.post(cmt_url, data={"message": cmt_msg, "access_token": FB_PAGE_ACCESS_TOKEN}, timeout=15)
+            print(f"[COMMENT] First engagement auto-comment posted on reel {video_id}")
+        except Exception as e:
+            print(f"[COMMENT ERROR] {e}")
         return {"video_id": video_id, "status": "published", "success": True}
 
     return finish_data
