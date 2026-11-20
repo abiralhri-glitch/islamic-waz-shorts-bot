@@ -51,8 +51,6 @@ jobs:
       - name: Execute Islamic Waz Reel Engine & Publish to Jannat
         env:
           PYTHONUNBUFFERED: "1"
-          FB_PAGE_ID: "1251877234677514"
-          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
         run: |
           python waz_runner.py
 
