@@ -33,7 +33,7 @@ FFMPEG_EXE = imageio_ffmpeg.get_ffmpeg_exe()
 WATERMARK_PNG = os.path.join(ASSETS_DIR, "watermark_waz.png")
 HISTORY_FILE = os.path.join(BASE_DIR, "posted_waz_history.json")
 
-# অপ্রাসঙ্গিক বা নষ্ট ফাইলের ব্ল্যাকলিস্ট (শুধুমাত্র করাপ্ট ফাইল)
+# অপ্রাসঙ্গিক বা নষ্ট ফাইলের ব্ল্যাকলিস্ট
 PERMANENT_BANNED_SIGNATURES = {
     "bank_ahmadullah_life_advice",
     "bank_ahmadullah_dua",
@@ -160,9 +160,6 @@ BANK_METADATA = [
 ]
 
 def apply_anti_copyright_and_watermark(input_video_path: str, output_path: str):
-    """
-    ফুল ভিডিও ক্লিয়ার ও সম্পূর্ণ দৃশ্যমান রাখার জন্য ১০৮০p ডুয়াল-লেয়ার স্মার্ট ফ্রেইমিং
-    """
     filter_complex = (
         "[0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=25:5,setsar=1[bg];"
         "[0:v]scale=1080:1920:force_original_aspect_ratio=decrease,setsar=1[fg];"
@@ -227,6 +224,15 @@ def run():
     print("[2/5] Searching offline bank (14 pre-staged MP4 clips) for unposted scholar waz...")
     unposted_bank = [b for b in BANK_METADATA if b["src_id"] not in all_posted_signatures]
     print(f"[*] Unposted items remaining in bank: {len(unposted_bank)} / {len(BANK_METADATA)}")
+
+    if not unposted_bank:
+        print("[*] All bank items have been posted at least once. Rotating clips not posted in recent 5 posts...")
+        recent_fb = get_posted_signatures_from_facebook(page_id, token, limit=5)
+        rotating_bank = [b for b in BANK_METADATA if b["src_id"] not in recent_fb and b["src_id"] not in PERMANENT_BANNED_SIGNATURES]
+        if not rotating_bank:
+            rotating_bank = [b for b in BANK_METADATA if b["src_id"] not in PERMANENT_BANNED_SIGNATURES]
+        unposted_bank = rotating_bank
+        print(f"[*] Available rotating bank clips: {len(unposted_bank)}")
 
     if unposted_bank:
         for b in unposted_bank:
@@ -297,12 +303,6 @@ def run():
     history["daily_stats"] = daily_stats
     save_local_history(history)
     print(f"📊 আজকের ইসলামিক শর্ট ওয়াজ পোস্টিং সংখ্যা: {daily_stats['total_posted']}/১০টি সম্পন্ন!")
-
-    # ৭. টেম্প ক্লিনআপ
-    try:
-        if os.path.exists(processed_output): os.remove(processed_output)
-    except Exception:
-        pass
 
 if __name__ == "__main__":
     run()
