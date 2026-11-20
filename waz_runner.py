@@ -185,12 +185,35 @@ def apply_anti_copyright_and_watermark(input_video_path: str, output_path: str):
     subprocess.run(cmd, check=True)
     return output_path
 
+WAZ_ENGAGEMENT_HOOKS = [
+    "⚠️ এই ১ মিনিটের নসিহতটি আপনার চিন্তা ও পুরো জীবন বদলে দিতে পারে! না টেনে শেষ পর্যন্ত শুনুন 💡",
+    "🔥 জাহান্নামের ভয়াবহ আগুন ও কবরের অন্ধকার থেকে বাঁচতে হুজুরের এই জরুরি কথাটি শুনুন 🤲",
+    "💔 দুনিয়ার কোনো বিপদেই মন ভাঙবেন না—হুজুরের এই মহামূল্যবান সান্ত্বনাটি শুনুন, দিল শান্ত হয়ে যাবে 🌿",
+    "💡 আমরা অনেকেই এই মারাত্মক ভুলটি প্রতিদিন করছি! দেখুন হুজুর কী সতর্কবার্তা দিচ্ছেন ⚠️ (শেষ পর্যন্ত শুনুন)",
+    "🌸 আল্লাহর সবচেয়ে প্রিয় ও সৌভাগ্যবান বান্দা হতে চান? মাত্র ১ মিনিটে জেনে নিন সহজ উপায়টি! 🤲",
+    "✨ ঈমান মজবুত রাখতে ও গুনাহ থেকে বাঁচতে প্রতিটি মুমিনের এই নসিহতটি শোনা অত্যন্ত জরুরি 🤍"
+]
+
+WAZ_VIRAL_HASHTAGS = [
+    "#BanglaWaz", "#IslamicShorts", "#WazShorts", "#Ahmadullah", "#MizanurRahmanAzhari",
+    "#AbuTohaAdnan", "#SayediWaz", "#TrendingWaz", "#ViralIslamicReels", "#IslamicStatus",
+    "#IslamicQuotes", "#Jannat", "#Nasihat", "#Deen", "#Sunnah", "#BanglaIslamicVideo",
+    "#IslamicReminder", "#ForYouPage", "#ViralReelsFacebook", "#ReelsViral2026", "#IslamicReels",
+    "#ShortWaz", "#IslamicDua", "#ViralVideo", "#Islam"
+]
+
 def generate_caption(title: str, scholar: str, nasihat: str, hashtags: str, src_id: str) -> str:
+    hook = random.choice(WAZ_ENGAGEMENT_HOOKS)
+    tag_cloud = " ".join(random.sample(WAZ_VIRAL_HASHTAGS, min(22, len(WAZ_VIRAL_HASHTAGS))))
     caption = (
-        f"🎙️ {title}\n\n"
+        f"{hook}\n\n"
+        f"🎙️ {title}\n"
+        f"👤 সম্মানিত আলোচক: {scholar}\n\n"
         f"💡 জীবনঘনিষ্ঠ মূল্যবান নসিহত:\n{nasihat}\n\n"
-        f"👉 দ্বীনি দাওয়াত ছড়িয়ে দিতে ভিডিওটি শেয়ার করে অন্য ভাই-বোনদের দেখার সুযোগ করে দিন। পেজটি ফলো দিয়ে সাথে থাকুন। 🌸🤲\n\n"
-        f"{hashtags} #IslamicShorts #WazShorts #BanglaWaz #IslamicReels #Sunnah\n\n"
+        f"━━━━━━━━━━━━━━━━━━━━\n"
+        f"👇 প্রতিদিন সেরা আলেমদের এমন জীবনঘনিষ্ঠ ওয়াজ ও নসিহত পেতে এখনই পেজটিতে [ফলো / + Follow] দিয়ে সাথে থাকুন! 👆🌸\n\n"
+        f"👉 দ্বীনি দাওয়াত ছড়িয়ে দিতে ভিডিওটি এখনই শেয়ার করুন এবং বন্ধুদের দেখার সুযোগ করে দিন 🤲\n\n"
+        f"{tag_cloud}\n\n"
         f"📌 [src:{src_id}]"
     )
     return caption
